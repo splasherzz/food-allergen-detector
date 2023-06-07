@@ -43,20 +43,30 @@
     }
 
     h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    color: aliceblue;
-    
-  }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 3em;
+        color: aliceblue;
+    }
 
-  .prompt {
+  .back {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    }
 
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    color: aliceblue;
-    
-  }
+    .back:hover {
+    background-color: #0056b3;
+    }
+
+    .back:active {
+    background-color: #003980;
+    }
 </style>

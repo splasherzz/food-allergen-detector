@@ -27,7 +27,7 @@
                     bind:value={input}
                     required
                 />
-                <button type="submit">Go!</button>
+                <button type="submit" class="go">Go!</button>
             </div>
         </form>
     </div>
@@ -44,7 +44,7 @@
         box-sizing: border-box;
         justify-content: center;
         align-items: center;
-        height: 95vh;
+        height: 93vh;
     }
 
     h1 {
@@ -53,12 +53,46 @@
         align-items: center;
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
+        font-size: 3em;
         color: aliceblue;
     }
 
     .prompt {
         font-family: 'Montserrat', sans-serif;
         font-weight: 300;
+        font-size: 18px;
         color: aliceblue;
+    }
+
+    .go {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    }
+
+    .go:hover {
+    background-color: #0056b3;
+    }
+
+    .go:active {
+    background-color: #003980;
+    }
+
+    .form {
+    padding: 10px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    }
+
+    .form:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
     }
 </style>
