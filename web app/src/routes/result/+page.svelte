@@ -4,7 +4,7 @@
     import { food } from '../../export.js';
     import { onMount } from 'svelte';
 
-    let input;
+    let product;
 
     function goBack() {
         goto('/');
@@ -12,7 +12,7 @@
 
     onMount(() => {
         food.subscribe(value => {
-            input = value;
+            product = value;
         });
     });
 </script>
