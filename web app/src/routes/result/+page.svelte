@@ -1,23 +1,30 @@
 <script lang="ts">
     import "@fontsource/montserrat"
-    function onSubmit(e) {
-        const formData = new FormData(e.target);
+    import { goto } from '$app/navigation';
+    import { food } from '../../export.js';
+    import { onMount } from 'svelte';
 
-        const data: any = {};
-		for (let field of formData) {
-			const [key, value] = field;
-			data[key] = value;
+    let input;
 
-        }
-            console.log(data);
-        }
+    function goBack() {
+        goto('/');
+    }
+
+    onMount(() => {
+        food.subscribe(value => {
+            input = value;
+        });
+    });
 </script>
-    
+
 <main>
     <div class="all">
-        <h1 >Hi</h1>
-
-    
+        <h1 class="caption">Your food: {$food}</h1>
+        
+        <div>
+            <button type="button" class="back" on:click={goBack}>Back</button>
+        </div>
+    </div>
 </main>
     
     
