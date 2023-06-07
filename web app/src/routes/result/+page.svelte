@@ -19,7 +19,7 @@
 
 <main>
     <div class="all">
-        <h1 class="caption">Your food: {$food}</h1>
+        <h1 class="caption">{$food} (insert prediction here)</h1>
         
         <div>
             <button type="button" class="back" on:click={goBack}>Back</button>
