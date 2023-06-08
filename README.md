@@ -1,7 +1,35 @@
-# AI for AI
+# AI for AI: Utilizing Artificial Intelligence for Allergen Identification in Food
 
-This project aims to develop an AI model for allergen detection in food products using a multi-label classification approach.
+This project aims to develop an AI model for allergen detection in food products using a multi-label classification approach. It will utilize separate Random Forest classifiers for each allergen class, treating them as independent binary classification tasks. This project addresses the limitations of traditional allergen detection methods, ensuring consumer safety and improving food allergen detection accuracy and food quality control processes. Using the "Food Ingredients and Allergens" dataset from Kaggle, the model will be trained to predict the presence of allergenic ingredients in different food products. The model will learn how to recognize patterns and associations between ingredients and allergens. The developed model will then be integrated into a web application for user-friendly allergen detection, where people with allergies can make informed decisions about the food they buy and consume. This project has the potential to benefit food manufacturers, the food service industry, regulatory bodies, and people with allergies, ultimately improving food safety and promoting informed food choices.
 
-# AI.llergen
+## Background and Motivation
+With millions of people experiencing adverse reactions to specific food ingredients globally, food allergies constitute a serious threat to public health. According to studies, it is estimated that 1.1%–10.8% of the global population experience food allergies (Food Insight, 2022); that is 83.6–820.8 million out of the 7.6 billion people in the world in 2017 (World Population Prospects, 2017). For the purpose of reducing allergic reactions and guaranteeing consumer safety, accurate and efficient allergen identification in food is crucial. Traditional methods of allergen detection, such as manual inspection and laboratory testing, are time-consuming, inefficient, and prone to human error (Možina, 2020). The use of artificial intelligence (AI) in allergen detection in food using ingredient similarity analysis has become more prevalent in the food industry because of its potential to enhance efficiency, accuracy, and safety in identifying allergenic food ingredients. 
+
+Various AI techniques can be used to conduct studies regarding allergen detection in food. Deep-learning models such as convolutional neural networks or recurrent neural networks can be utilized to analyze spatial relationships in ingredient images or to process sequential ingredient data. Aside from this, by training a model to categorize ingredients as allergenic or non-allergenic based on labeled training data, supervised machine learning can be used to detect allergens in food ingredients. Along with the aforementioned techniques are data mining and natural language processing. By comparing and analyzing the similarities between substances based on their chemical structure, physical makeup, or other pertinent characteristics, data mining techniques can be applied. This aids in identifying potential allergenic ingredients by finding similarities with known allergens.
+
+The project will develop a random forest classifier model that makes use of bagging and features randomness. The model will in this instance utilize a variety of allergen sources as features, including the main ingredient, sweetener, fat or oil, seasoning, and the product's allergen label. This project will make use of the “Food Ingredients and Allergens” dataset from Kaggle (Tharmalingam, 2022). In order to prepare for training the model, the data is configured to undergo preprocessing before the features are extracted. Based on a food product's composition, this model will be utilized to predict if it includes allergens or not.
+
+There are several benefits to various sectors from properly utilizing AI techniques in allergen detection and developing a highly accurate model. This has the potential to improve general consumer safety and efficiency in food manufacturing, food regulation, and quality control processes. Allergen labeling in the food industry will become more accurate and less prone to human error through AI (Yang et al., 2020), greatly reducing the risk of allergic reactions for people who are misinformed by an inaccurate allergen label. Furthermore, this will aid in research studies and projects about allergen management and policy-making. However, to create a robust and dependable AI-based allergy detection system, issues such as the lack of comprehensive and high-quality ingredient data, algorithm selection, and model interpretability must be solved.
+
+In conclusion, the potential of AI to improve the current methods of allergen identification through ingredient similarity analysis is promising. It has the prospect of aiding in better consumer safety, food manufacturing, food regulation and quality control, and product development for allergen-safe options. Moreover, AI can aid research about allergen management in food ingredients. As such, the project aims to produce a model that will achieve the same goals as the aforementioned. Looking ahead, further research and development in this field are crucial. Collaboration between food manufacturers, regulatory bodies, and research institutions is needed to ensure the availability of comprehensive and up-to-date ingredient databases. More extensive and diverse datasets, encompassing various allergens and food products, are required to train AI models effectively. With continued research and collaboration, AI-based systems can become valuable tools in ensuring consumer health and well-being in the realm of allergen detection in food.
+
+## Data Collection
+We obtained the 2023 Kaggle dataset titled ["Food Ingredients & Allergens"](https://www.kaggle.com/datasets/uom190346a/food-ingredients-and-allergens) by Laksika Tharmalingam. We augmented data by manually adding 92 entries to the dataset, adding various food products and their allergen labels that we got from Google. The augmented dataset is then used to train and test our AI model for food allergen detection.
+
+## Data Preprocessing
+Before augmenting the dataset, we cleaned the original dataset by doing the following:
+
+- did type formatting by changing all of the columns' data types from `object` to `category`
+- checked for null values using `.isna()`, dropping the single entry containing a null value 
+- checked for and dropped duplicates using `.drop_duplicates()`, keeping only the first instance of the food
+
+We then added 92 more entries such that the dataset now has 400 entries with a total of 7 columns. After augmenting the dataset, we did categorical data encoding by doing the following:
+
+- mapped the qualitative predictions into binary values `0` for `"Does Not Contain"` and `1` for `"Contains"`
+- converted the rest of the categorical features into binary representations via one-hot encoding
+
+One-hot encoding transforms each unique category in a variable to a separate binary feature. This was done as it allows us to represent categorical variables as numerical inputs, which is needed for our chosen model—multi-label classification.
+
+## AI.llergen
 
 The deployed web app, named AI.llergen, lets the user input the food product and its details (such as main ingredient, sweetener, allergen, etc) in order to find out whether the food product contains allergens or not. The AI model we trained will be used for predicting the presence of allergens.
