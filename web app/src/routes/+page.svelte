@@ -22,6 +22,7 @@
         sweetener: $formValues.sweet,
         fat_oil: $formValues.fat,
         seasoning: $formValues.seas,
+        allergens: $formValues.aller
       },
       {
         headers: {
