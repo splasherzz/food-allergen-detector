@@ -15,7 +15,7 @@
 
     console.log(formData);
     const res = await axios.post(
-      "http://splasherz.pythonanywhere.com/predict",
+      "https://splasherz.pythonanywhere.com/predict",
       {
         food_product: $formValues.product,
         main_ingredient: $formValues.ingre,
