@@ -32,8 +32,6 @@
     );
     $formValues.pred = res.data
     console.log($formValues.pred);
-    // insert logic for backend connection here
-
     food.set(formData.product);
     goto("/result");
   }
@@ -41,9 +39,12 @@
 
 <main>
   <div class="all">
-    <h1>Welcome to AI.llergen</h1>
-    <label for="name" class="prompt" style="margin-bottom: 20px;"
+    <h1>welcome to&nbsp;<span class="ai">ai.llergen</span></h1>
+    <label for="name" class="prompt" style="margin-bottom: 5px;"
       >Enter your food product details here:</label
+    >
+    <label for="name" class="prompt2" style="margin-bottom: 20px;"
+      >(Leave text box blank if none)</label
     >
 
     <form on:submit|preventDefault={onSubmit}>
@@ -90,7 +91,7 @@
 
 <style>
   :global(body) {
-    background: rgb(1, 31, 75);
+    background: #011f4b;
   }
 
   .all {
@@ -112,10 +113,20 @@
     color: aliceblue;
   }
 
+  .ai {
+    color: #FFA552;
+  }
   .prompt {
     font-family: "Montserrat", sans-serif;
     font-weight: 300;
     font-size: 22px;
+    color: aliceblue;
+  }
+
+  .prompt2 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    font-size: 16px;
     color: aliceblue;
   }
 
@@ -158,6 +169,7 @@
     font-size: 16px;
     cursor: pointer;
     margin-top: 7px;
+    width: 120px;
   }
 
   .go:hover {
