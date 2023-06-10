@@ -1,7 +1,7 @@
 <script lang="ts">
     import "@fontsource/montserrat"
     import { goto } from '$app/navigation';
-    import { food } from '../../export.js';
+    import { food, formValues } from '../../export.js';
     import { onMount } from 'svelte';
 
     let product;
@@ -19,7 +19,7 @@
 
 <main>
     <div class="all">
-        <h1 class="caption">{$food} (insert prediction here)</h1>
+        <h1 class="caption">{$food}: {$formValues.pred}</h1>
         
         <div>
             <button type="button" class="back" on:click={goBack}>Back</button>
