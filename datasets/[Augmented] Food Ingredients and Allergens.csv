@@ -385,7 +385,7 @@ Glazed donut,Flour,Sugar,None,"Yeast, eggs","Eggs, wheat",Contains
 Choco butternut donut,Almond flour,Sugar,None,"Chocolate, eggs, yeast, vanilla, cocoa","Cocoa, eggs, wheat, nuts",Contains
 Clam chowder,Clams,None,Butter,"Bacon, garlic, flour, milk","Dairy, wheat, shellfish",Contains
 Custard pie,Eggs,Sugar,Butter,"Flour, milk, cream, salt, vanilla","Dairy, wheat, eggs",Contains
-Ravioli,Cheese,None,Olive oil,"Flour, salt, eggs","Dairy, egggs, wheat",Contains
+Ravioli,Cheese,None,Olive oil,"Flour, salt, eggs","Dairy, eggs, wheat",Contains
 Waldorf salad,Apples,None,None,"Lemon juice, salt, pepper, grapes",None,Does not contain
 Salsa salad,Tomatoes,None,None,"Lime, salt, cilantro, bell pepper, onion, avocado",None,Does not contain
 Tuna salad sandwich,Tuna,None,None,"Mayonnaise, salt, pepper, bread","Wheat, fish",Contains
