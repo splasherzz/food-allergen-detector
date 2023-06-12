@@ -39,11 +39,14 @@
 
 <main>
   <div class="all">
-    <h1>welcome to&nbsp;<span class="ai">ai.llergen</span></h1>
+    <h1 style="margin-bottom: 18px;">welcome to&nbsp;<span class="ai">ai.llergen</span></h1>
+    <label for="name" class="prompt" 
+      >Want to know if your food contains possible allergens?</label
+    >
     <label for="name" class="prompt" style="margin-bottom: 5px;"
       >Enter your food product details here:</label
     >
-    <label for="name" class="prompt2" style="margin-bottom: 20px;"
+    <label for="name" class="prompt2" style="margin-bottom: 25px;"
       >(Leave text box blank if none)</label
     >
 
@@ -55,6 +58,7 @@
           type="text"
           bind:value={$formValues.product}
           required
+          placeholder="Required"
         />
       </div>
       <div class="form-group">
@@ -64,6 +68,7 @@
           type="text"
           bind:value={$formValues.ingre}
           required
+          placeholder="Required"
         />
       </div>
       <div class="form-group">
@@ -109,7 +114,7 @@
     align-items: center;
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
-    font-size: 3em;
+    font-size: 3.5em;
     color: aliceblue;
   }
 
@@ -118,14 +123,14 @@
   }
   .prompt {
     font-family: "Montserrat", sans-serif;
-    font-weight: 300;
+    font-weight: 200;
     font-size: 22px;
     color: aliceblue;
   }
 
   .prompt2 {
     font-family: "Montserrat", sans-serif;
-    font-weight: 300;
+    font-weight: 200;
     font-size: 16px;
     color: aliceblue;
   }
