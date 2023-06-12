@@ -4,7 +4,10 @@
   import { goto } from "$app/navigation";
   import { food, formValues } from "../export.js";
 
+  let isLoading = false;
+
   async function onSubmit() {
+    isLoading = true;
     let formData = $formValues;
 
     for (const key in formData) {
@@ -22,7 +25,7 @@
         sweetener: $formValues.sweet,
         fat_oil: $formValues.fat,
         seasoning: $formValues.seas,
-        allergens: $formValues.aller
+        allergens: $formValues.aller,
       },
       {
         headers: {
@@ -30,68 +33,79 @@
         },
       }
     );
-    $formValues.pred = res.data
+
+    $formValues.pred = res.data;
     console.log($formValues.pred);
+    await new Promise((resolve) => setTimeout(resolve, 2850))
+    isLoading = false;
     food.set(formData.product);
     goto("/result");
   }
 </script>
 
 <main>
-  <div class="all">
-    <h1 style="margin-bottom: 18px;">welcome to&nbsp;<span class="ai">ai.llergen</span></h1>
-    <label for="name" class="prompt" 
-      >Want to know if your food contains possible allergens?</label
-    >
-    <label for="name" class="prompt" style="margin-bottom: 5px;"
-      >Enter your food product details here:</label
-    >
-    <label for="name" class="prompt2" style="margin-bottom: 25px;"
-      >(Leave text box blank if none)</label
-    >
+  {#if !isLoading}
+    <div class="all">
+      <h1 style="margin-bottom: 18px;">
+        welcome to&nbsp;<span class="ai">ai.llergen</span>
+      </h1>
+      <label for="name" class="prompt"
+        >Want to know if your food contains possible allergens?</label
+      >
+      <label for="name" class="prompt" style="margin-bottom: 5px;"
+        >Enter your food product details here:</label
+      >
+      <label for="name" class="prompt2" style="margin-bottom: 25px;"
+        >(Leave text box blank if none)</label
+      >
 
-    <form on:submit|preventDefault={onSubmit}>
-      <div class="form-group">
-        <label for="product" class="textlabel">Name of Food</label>
-        <input
-          class="form"
-          type="text"
-          bind:value={$formValues.product}
-          required
-          placeholder="Required"
-        />
-      </div>
-      <div class="form-group">
-        <label for="ingre" class="textlabel">Main Ingredient</label>
-        <input
-          class="form"
-          type="text"
-          bind:value={$formValues.ingre}
-          required
-          placeholder="Required"
-        />
-      </div>
-      <div class="form-group">
-        <label for="sweet" class="textlabel">Sweetener</label>
-        <input class="form" type="text" bind:value={$formValues.sweet} />
-      </div>
-      <div class="form-group">
-        <label for="fat" class="textlabel">Fat/Oil</label>
-        <input class="form" type="text" bind:value={$formValues.fat} />
-      </div>
-      <div class="form-group">
-        <label for="seas" class="textlabel">Seasoning</label>
-        <input class="form" type="text" bind:value={$formValues.seas} />
-      </div>
-      <div class="form-group">
-        <label for="aller" class="textlabel">Allergens</label>
-        <input class="form" type="text" bind:value={$formValues.aller} />
-      </div>
-      <div style="text-align: center;">
-        <button type="submit" class="go">Go!</button>
-      </div>
-    </form>
-  </div>
+      <form on:submit|preventDefault={onSubmit}>
+        <div class="form-group">
+          <label for="product" class="textlabel">Name of Food</label>
+          <input
+            class="form"
+            type="text"
+            bind:value={$formValues.product}
+            required
+            placeholder="Required"
+          />
+        </div>
+        <div class="form-group">
+          <label for="ingre" class="textlabel">Main Ingredient</label>
+          <input
+            class="form"
+            type="text"
+            bind:value={$formValues.ingre}
+            required
+            placeholder="Required"
+          />
+        </div>
+        <div class="form-group">
+          <label for="sweet" class="textlabel">Sweetener</label>
+          <input class="form" type="text" bind:value={$formValues.sweet} />
+        </div>
+        <div class="form-group">
+          <label for="fat" class="textlabel">Fat/Oil</label>
+          <input class="form" type="text" bind:value={$formValues.fat} />
+        </div>
+        <div class="form-group">
+          <label for="seas" class="textlabel">Seasoning</label>
+          <input class="form" type="text" bind:value={$formValues.seas} />
+        </div>
+        <div class="form-group">
+          <label for="aller" class="textlabel">Allergens</label>
+          <input class="form" type="text" bind:value={$formValues.aller} />
+        </div>
+        <div style="text-align: center;">
+          <button type="submit" class="go">Go!</button>
+        </div>
+      </form>
+    </div>
+  {:else}
+    <div class="loading-container">
+      <div class="loader" />
+    </div>
+  {/if}
 </main>
 
 <style>
@@ -119,7 +133,7 @@
   }
 
   .ai {
-    color: #FFA552;
+    color: #ffa552;
   }
   .prompt {
     font-family: "Montserrat", sans-serif;
@@ -183,5 +197,31 @@
 
   .go:active {
     background-color: #003980;
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+    margin: 20px auto;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 </style>
