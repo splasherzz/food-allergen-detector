@@ -1,24 +1,21 @@
 # AI for AI: Utilizing Artificial Intelligence for Allergen Identification in Food
+by Juan Antonio Bonuan, Dean Ramirez, Julia Sabado & Andrei Tiangco
+<br>
+CS 180 Artificial Intelligence Course
+<br>
+Department of Computer Science
+<br>
+University of the Philippines Diliman
 
-This project aims to develop an AI model for allergen detection in food products using a multi-label classification approach. It will utilize separate Random Forest classifiers for each allergen class, treating them as independent binary classification tasks. This project addresses the limitations of traditional allergen detection methods, ensuring consumer safety and improving food allergen detection accuracy and food quality control processes. Using the "Food Ingredients and Allergens" dataset from Kaggle, the model will be trained to predict the presence of allergenic ingredients in different food products. The model will learn how to recognize patterns and associations between ingredients and allergens. The developed model will then be integrated into a web application for user-friendly allergen detection, where people with allergies can make informed decisions about the food they buy and consume. This project has the potential to benefit food manufacturers, the food service industry, regulatory bodies, and people with allergies, ultimately improving food safety and promoting informed food choices.
+This project is done by  aims to develop an AI model for allergen detection in food products using a multi-label classification approach. It will utilize separate Random Forest classifiers for each allergen class, treating them as independent binary classification tasks. This project addresses the limitations of traditional allergen detection methods, ensuring consumer safety and improving food allergen detection accuracy and food quality control processes. Using the ["Food Ingredients & Allergens"](https://www.kaggle.com/datasets/uom190346a/food-ingredients-and-allergens) dataset from Kaggle, the model will be trained to predict the presence of allergenic ingredients in different food products. The model will learn how to recognize patterns and associations between ingredients and allergens. The developed model will then be integrated into a web application for user-friendly allergen detection, where people with allergies can make informed decisions about the food they buy and consume. This project has the potential to benefit food manufacturers, the food service industry, regulatory bodies, and people with allergies, ultimately improving food safety and promoting informed food choices.
 
-## Data Collection
-We obtained the 2023 Kaggle dataset titled ["Food Ingredients & Allergens"](https://www.kaggle.com/datasets/uom190346a/food-ingredients-and-allergens) by Laksika Tharmalingam. We augmented data by manually adding 92 entries to the dataset, adding various food products and their allergen labels that we got from Google. The augmented dataset is then used to train and test our AI model for food allergen detection.
+## Project Code
+The project code Jupyter Notebook can be found inside the `project code` folder of this [repository](https://github.com/splasherzz/food-allergen-detector). In there, we described each step of creating this AI model (from data collection up to data results).
 
-## Data Preprocessing
-Before augmenting the dataset, we cleaned the original dataset by doing the following:
+## Web App: ai.llergen
 
-- did type formatting by changing all of the columns' data types from `object` to `category`
-- checked for null values using `.isna()`, dropping the single entry containing a null value 
-- checked for and dropped duplicates using `.drop_duplicates()`, keeping only the first instance of the food
+We integrated the trained AI model into a web app named **ai.llergen**, built with SvelteKit (frontend) and Python (backend). We've deployed the web app for easier accessibility by all, which you can access [here](https://food-allergen-detector.vercel.app/).
 
-We then added 92 more entries such that the dataset now has 400 entries with a total of 7 columns. After augmenting the dataset, we did categorical data encoding by doing the following:
+To use the app locally, clone our public Github repository named [food-allergen-detector](https://github.com/splasherzz/food-allergen-detector). Make sure you're in the `web app` directory then run the following command to install the needed dependencies: `npm install`. Afterwards, run the command `npm run dev` and launch the web app using the `localhost` link provided. 
 
-- mapped the qualitative predictions into binary values `0` for `"Does Not Contain"` and `1` for `"Contains"`
-- converted the rest of the categorical features into binary representations via one-hot encoding
-
-One-hot encoding transforms each unique category in a variable to a separate binary feature. This was done as it allows us to represent categorical variables as numerical inputs, which is needed for our chosen model—multi-label classification.
-
-## AI.llergen
-
-The deployed web app, named AI.llergen, lets the user input the food product and its details (such as main ingredient, sweetener, allergen, etc) in order to find out whether the food product contains allergens or not. The AI model we trained will be used for predicting the presence of allergens.
+Once run, you will be prompted to enter your food product's name and main ingredient. The other fields are only optional as not all food product labels might include its specific sweetener, fat/oil, seasoning, and/or allergens. Press the `Go!` button to let the AI model predict whether your entered food product has allergens. Afterwards, the name of your food product and the prediction will be displayed. It will be either `Contains` or `Does not contain`. You can then press `Back` to enter another food product to check.
