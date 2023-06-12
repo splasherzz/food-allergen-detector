@@ -1,10 +1,12 @@
 <script lang="ts">
   import "@fontsource/montserrat";
-  import axios from "axios";
   import { goto } from "$app/navigation";
   import { food, formValues } from "../export.js";
+  import axios from "axios";
+  import { tick } from "svelte";
 
   let isLoading = false;
+  let showPage = false;
 
   async function onSubmit() {
     isLoading = true;
@@ -36,75 +38,85 @@
 
     $formValues.pred = res.data;
     console.log($formValues.pred);
-    await new Promise((resolve) => setTimeout(resolve, 2850))
-    isLoading = false;
+
     food.set(formData.product);
+
+    isLoading = false;
     goto("/result");
   }
+
+  async function initializePage() {
+    await tick();
+    showPage = true;
+  }
+
+  initializePage();
 </script>
 
 <main>
-  {#if !isLoading}
-    <div class="all">
-      <h1 style="margin-bottom: 18px;">
-        welcome to&nbsp;<span class="ai">ai.llergen</span>
-      </h1>
-      <label for="name" class="prompt"
-        >Want to know if your food contains possible allergens?</label
-      >
-      <label for="name" class="prompt" style="margin-bottom: 5px;"
-        >Enter your food product details here:</label
-      >
-      <label for="name" class="prompt2" style="margin-bottom: 25px;"
-        >(Leave text box blank if none)</label
-      >
+  {#if showPage}
+    {#if !isLoading}
+      <div class="all">
+        <h1 style="margin-bottom: 18px;">
+          welcome to&nbsp;<span class="ai">ai.llergen</span>
+        </h1>
+        <label for="name" class="prompt"
+          >Want to know if your food contains possible allergens?</label
+        >
+        <label for="name" class="prompt" style="margin-bottom: 5px;"
+          >Enter your food product details here:</label
+        >
+        <label for="name" class="prompt2" style="margin-bottom: 25px;"
+          >(Leave text box blank if none)</label
+        >
 
-      <form on:submit|preventDefault={onSubmit}>
-        <div class="form-group">
-          <label for="product" class="textlabel">Name of Food</label>
-          <input
-            class="form"
-            type="text"
-            bind:value={$formValues.product}
-            required
-            placeholder="Required"
-          />
-        </div>
-        <div class="form-group">
-          <label for="ingre" class="textlabel">Main Ingredient</label>
-          <input
-            class="form"
-            type="text"
-            bind:value={$formValues.ingre}
-            required
-            placeholder="Required"
-          />
-        </div>
-        <div class="form-group">
-          <label for="sweet" class="textlabel">Sweetener</label>
-          <input class="form" type="text" bind:value={$formValues.sweet} />
-        </div>
-        <div class="form-group">
-          <label for="fat" class="textlabel">Fat/Oil</label>
-          <input class="form" type="text" bind:value={$formValues.fat} />
-        </div>
-        <div class="form-group">
-          <label for="seas" class="textlabel">Seasoning</label>
-          <input class="form" type="text" bind:value={$formValues.seas} />
-        </div>
-        <div class="form-group">
-          <label for="aller" class="textlabel">Allergens</label>
-          <input class="form" type="text" bind:value={$formValues.aller} />
-        </div>
-        <div style="text-align: center;">
-          <button type="submit" class="go">Go!</button>
-        </div>
-      </form>
-    </div>
-  {:else}
-    <div class="loading-container">
-      <div class="loader" />
-    </div>
+        <form on:submit|preventDefault={onSubmit}>
+          <div class="form-group">
+            <label for="product" class="textlabel">Name of Food</label>
+            <input
+              class="form"
+              type="text"
+              bind:value={$formValues.product}
+              required
+              placeholder="Required"
+            />
+          </div>
+          <div class="form-group">
+            <label for="ingre" class="textlabel">Main Ingredient</label>
+            <input
+              class="form"
+              type="text"
+              bind:value={$formValues.ingre}
+              required
+              placeholder="Required"
+            />
+          </div>
+          <div class="form-group">
+            <label for="sweet" class="textlabel">Sweetener</label>
+            <input class="form" type="text" bind:value={$formValues.sweet} />
+          </div>
+          <div class="form-group">
+            <label for="fat" class="textlabel">Fat/Oil</label>
+            <input class="form" type="text" bind:value={$formValues.fat} />
+          </div>
+          <div class="form-group">
+            <label for="seas" class="textlabel">Seasoning</label>
+            <input class="form" type="text" bind:value={$formValues.seas} />
+          </div>
+          <div class="form-group">
+            <label for="aller" class="textlabel">Allergens</label>
+            <input class="form" type="text" bind:value={$formValues.aller} />
+          </div>
+          <div style="text-align: center;">
+            <button type="submit" class="go">Go!</button>
+          </div>
+        </form>
+      </div>
+    {:else}
+      <div class="loading-container">
+        <div class="loader" />
+      </div>
+    {/if}
   {/if}
 </main>
 
