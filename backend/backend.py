@@ -10,8 +10,16 @@ clf = pickle.load(open('model.pkl', 'rb'))
 # Load the dataset
 aug_food = pd.read_csv('food_allergen_dataset.csv')
 aug_food['Prediction'] = aug_food['Prediction'].map({'Contains': 1, 'Does not contain': 0})
+
+# Mirror dummy encoding to later reshape the input vector based on the dummy columns
+aug_allerg = aug_food['Allergens'].str.replace(' ', '').str.get_dummies(',')
+aug_allerg = aug_allerg.add_prefix('Allergens_')
+aug_season = aug_food['Seasoning'].str.replace(' ', '').str.get_dummies(',')
+aug_season = aug_season.add_prefix('Seasoning_')
+aug_food.drop(['Seasoning','Allergens'], axis=1, inplace=True)
 aug_food = pd.get_dummies(aug_food, drop_first=True)
-aug_food.insert(len(aug_food), 'Prediction', aug_food.pop('Prediction'))
+aug_food = pd.concat([aug_food, aug_season, aug_allerg], axis=1)
+aug_food = aug_food[[col for col in aug_food.columns if col != 'Prediction'] + ['Prediction']]
 
 @app.route('/')
 def home():
