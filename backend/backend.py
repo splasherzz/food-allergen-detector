@@ -5,7 +5,7 @@ import pickle
 
 app = Flask(__name__)
 CORS(app)
-clf = pickle.load(open('model.pkl', 'rb'))
+clf = pickle.load(open('model.pickle', 'rb'))
 
 # Load the dataset
 aug_food = pd.read_csv('food_allergen_dataset.csv')
