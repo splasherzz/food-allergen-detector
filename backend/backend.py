@@ -29,12 +29,12 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     # Get the input values from the form
-    food_product = request.form['food_product']
-    main_ingredient = request.form['main_ingredient']
-    sweetener = request.form['sweetener']
-    fat_oil = request.form['fat_oil']
-    seasoning = request.form['seasoning']
-    allergens = request.form['allergens']
+    food_product = request.form['food_product'].lower()
+    main_ingredient = request.form['main_ingredient'].lower()
+    sweetener = request.form['sweetener'].lower()
+    fat_oil = request.form['fat_oil'].lower()
+    seasoning = request.form['seasoning'].lower()
+    allergens = request.form['allergens'].lower()
 
     input_data = []
     cols = {"Food Product": food_product,
