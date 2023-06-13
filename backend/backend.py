@@ -9,7 +9,8 @@ clf = pickle.load(open('model.pkl', 'rb'))
 
 # Load the dataset
 aug_food = pd.read_csv('food_allergen_dataset.csv')
-aug_food['Prediction'] = aug_food['Prediction'].map({'Contains': 1, 'Does not contain': 0})
+aug_food = aug_food.applymap(lambda s: s.lower() if type(s) == str else s)
+aug_food['Prediction'] = aug_food['Prediction'].map({'contains': 1, 'does not contain': 0})
 
 # Mirror dummy encoding to later reshape the input vector based on the dummy columns
 aug_allerg = aug_food['Allergens'].str.replace(' ', '').str.get_dummies(',')
