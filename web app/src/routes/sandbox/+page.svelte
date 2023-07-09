@@ -3,9 +3,15 @@
     import axios from "axios";
     import { goto } from "$app/navigation";
     import { food, formValues } from "../../export.js";
+    import { onMount } from "svelte";
 
     let isLoading = false;
+    let showContent = false;
 
+    function toggleContent() {
+        showContent = !showContent;
+    }
+    
     async function onSubmit() {
         isLoading = true;
         let formData = $formValues;
@@ -44,12 +50,27 @@
 
 <main>
     <div class="title">
-        <p class="heading">
+        <p class="heading" on:click={toggleContent}>
             ai.llergen
+            {#if !showContent}
             <span class="hover-text">click to start</span>
+            {/if}
         </p>
+        {#if showContent}
+            <div class="expanded-content">
+                <!-- Add your expandable content here -->
+                <p>ai.llergen is your friendly food allergen detector. this
+                    handy app can help you identify whether your food product
+                    may or may not contain an allergen by prompting you to input
+                    its main ingredient and other information. if information is
+                    unknown, you may leave it blank.</p>
+            </div>
+        {/if}
     </div>
 </main>
+
+
+
 
 <style>
     @font-face {
@@ -111,9 +132,12 @@
         transition: visibility 0s, opacity 0.3s ease-in-out;
     }
 
+    .title {
+        margin-bottom: 10px;
+    }
     .heading {
         font-family: "RB", sans-serif;
-        font-size: 5em;
+        font-size: 6em;
         color: #ebe3d3;
         letter-spacing: 3px;
         cursor: pointer;
@@ -123,6 +147,19 @@
     .heading:hover .hover-text {
         visibility: visible;
         opacity: 1;
+    }
+
+    .expanded-content {
+        text-align: justify;
+        width: 450px;
+        margin-top: 10px;
+        padding: 16px;
+        background-color: #ebe3d3;
+        border-radius: 25px;
+        font-family: "IntroCd", sans-serif;
+        font-weight: 200;
+        font-size: 16px;
+        color: #3a3a3a;
     }
 
     .container1 {
