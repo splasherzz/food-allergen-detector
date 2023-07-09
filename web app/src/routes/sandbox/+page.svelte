@@ -11,7 +11,7 @@
     function toggleContent() {
         showContent = !showContent;
     }
-    
+
     async function onSubmit() {
         isLoading = true;
         let formData = $formValues;
@@ -49,53 +49,32 @@
 </script>
 
 <main>
-    <div class="title">
+    {#if !showContent}
         <p class="heading" on:click={toggleContent}>
             ai.llergen
-            {#if !showContent}
             <span class="hover-text">click to start</span>
-            {/if}
         </p>
-        {#if showContent}
+    {/if}
+
+    {#if showContent}
+        <div class="expanded-content-container">
             <div class="expanded-content">
-                <!-- Add your expandable content here -->
-                <p>ai.llergen is your friendly food allergen detector. this
+                <p>
+                    ai.llergen is your friendly food allergen detector. This
                     handy app can help you identify whether your food product
                     may or may not contain an allergen by prompting you to input
-                    its main ingredient and other information. if information is
-                    unknown, you may leave it blank.</p>
+                    its main ingredient and other information. If information is
+                    unknown, you may leave it blank.
+                </p>
             </div>
-        {/if}
-    </div>
+        </div>
+    {/if}
 </main>
-
-
-
 
 <style>
     @font-face {
-        font-family: "RestoraExtraLight";
-        src: url("/fonts/RestoraExtraLight.otf") format("opentype");
-    }
-
-    @font-face {
-        font-family: "IntroCdReg";
-        src: url("/fonts/IntroCd-Trial-Rg.otf") format("opentype");
-    }
-
-    @font-face {
-        font-family: "Magic";
-        src: url("/fonts/Magic Retro.ttf") format("truetype");
-    }
-
-    @font-face {
         font-family: "IntroCd";
         src: url("/fonts/IntroCd-Trial-Rg.otf") format("opentype");
-    }
-
-    @font-face {
-        font-family: "BreakLove";
-        src: url("/fonts/Break_Love_Font[1].ttf") format("truetype");
     }
 
     @font-face {
@@ -132,9 +111,7 @@
         transition: visibility 0s, opacity 0.3s ease-in-out;
     }
 
-    .title {
-        margin-bottom: 10px;
-    }
+
     .heading {
         font-family: "RB", sans-serif;
         font-size: 6em;
@@ -142,17 +119,43 @@
         letter-spacing: 3px;
         cursor: pointer;
         position: relative;
+        opacity: 0;
+        animation: fadeInHeading 0.3s ease-in-out forwards;
     }
 
     .heading:hover .hover-text {
         visibility: visible;
         opacity: 1;
     }
+    
+    @keyframes fadeInHeading {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 
+    .expanded-content-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px; /* Adjust the margin as desired */
+        opacity: 0;
+        animation: fadeInContent 0.3s ease-in-out forwards;
+    }
+
+    @keyframes fadeInContent {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
     .expanded-content {
         text-align: justify;
         width: 450px;
-        margin-top: 10px;
         padding: 16px;
         background-color: #ebe3d3;
         border-radius: 25px;
@@ -160,33 +163,5 @@
         font-weight: 200;
         font-size: 16px;
         color: #3a3a3a;
-    }
-
-    .container1 {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: #db7c7c;
-        padding: 20px;
-        border-radius: 25px;
-    }
-
-    .ai {
-        color: #c1ece4;
-    }
-
-    .prompt {
-        font-family: "IntroCd", sans-serif;
-        font-weight: 200;
-        font-size: 22px;
-        color: aliceblue;
-    }
-
-    .prompt2 {
-        font-family: "IntroCd", sans-serif;
-        font-weight: 200;
-        font-size: 16px;
-        color: aliceblue;
     }
 </style>
