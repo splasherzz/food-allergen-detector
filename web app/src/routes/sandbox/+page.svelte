@@ -46,6 +46,7 @@
     <div class="title">
         <p class="heading">
             ai.llergen
+            <span class="hover-text">click to start</span>
         </p>
     </div>
 </main>
@@ -93,9 +94,35 @@
         height: 100%;
     }
 
-    .title {
-        
-        
+    .hover-text {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ebe3d3;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-family: "IntroCd", sans-serif;
+        font-weight: 200;
+        font-size: 12px;
+        color: #3a3a3a;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-in-out;
+    }
+
+    .heading {
+        font-family: "RB", sans-serif;
+        font-size: 5em;
+        color: #ebe3d3;
+        letter-spacing: 3px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .heading:hover .hover-text {
+        visibility: visible;
+        opacity: 1;
     }
 
     .container1 {
@@ -106,13 +133,6 @@
         background-color: #db7c7c;
         padding: 20px;
         border-radius: 25px;
-    }
-
-    .heading {
-        font-family: "RB", sans-serif;
-        font-size: 5em;
-        color: #ebe3d3;
-        letter-spacing: 3px;
     }
 
     .ai {
