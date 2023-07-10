@@ -1,10 +1,27 @@
 <script lang="ts">
-  import "@fontsource/montserrat";
   import axios from "axios";
   import { goto } from "$app/navigation";
   import { food, formValues } from "../export.js";
+  import { onMount } from "svelte";
 
   let isLoading = false;
+  const containerCount = 6; // Number of containers
+  let showContent = false;
+  let containerFlags = Array(containerCount).fill(false);
+  let activeContainerIndex = -1;
+
+  function toggleContent() {
+    showContent = !showContent;
+  }
+
+  function handleUnderstoodClick(index) {
+    if (index === -1 && activeContainerIndex === 1) {
+      activeContainerIndex = -1;
+    } else {
+      activeContainerIndex = index;
+    }
+    containerFlags[index] = true;
+  }
 
   async function onSubmit() {
     isLoading = true;
@@ -38,187 +55,478 @@
     console.log($formValues.pred);
     isLoading = false;
     food.set(formData.product);
-    goto("/result");
+    goto("/result", { state: { activeContainerIndex } });
   }
 </script>
 
 <main>
-  <div class="all">
-    <h1 style="margin-bottom: 18px;">
-      welcome to&nbsp;<span class="ai">ai.llergen</span>
-    </h1>
-    <label for="name" class="prompt"
-      >Want to know if your food contains possible allergens?</label
-    >
-    <label for="name" class="prompt" style="margin-bottom: 5px;"
-      >Enter your food product details here:</label
-    >
-    <label for="name" class="prompt2" style="margin-bottom: 25px;"
-      >(Leave text box blank if none)</label
-    >
+  <div class="title">
+    {#if !showContent}
+      <p class="heading" on:click={toggleContent}>
+        ai.llergen
+        <span class="hover-text">click to start</span>
+      </p>
+    {/if}
 
-    <form on:submit|preventDefault={onSubmit}>
-      <div class="form-group">
-        <label for="product" class="textlabel">Name of Food</label>
-        <input
-          class="form"
-          type="text"
-          bind:value={$formValues.product}
-          required
-          placeholder="Required"
-        />
-      </div>
-      <div class="form-group">
-        <label for="ingre" class="textlabel">Main Ingredient</label>
-        <input
-          class="form"
-          type="text"
-          bind:value={$formValues.ingre}
-          required
-          placeholder="Required"
-        />
-      </div>
-      <div class="form-group">
-        <label for="sweet" class="textlabel">Sweetener</label>
-        <input class="form" type="text" bind:value={$formValues.sweet} />
-      </div>
-      <div class="form-group">
-        <label for="fat" class="textlabel">Fat/Oil</label>
-        <input class="form" type="text" bind:value={$formValues.fat} />
-      </div>
-      <div class="form-group">
-        <label for="seas" class="textlabel">Seasoning</label>
-        <input class="form" type="text" bind:value={$formValues.seas} />
-      </div>
-      <div class="form-group">
-        <label for="aller" class="textlabel">Allergens</label>
-        <input class="form" type="text" bind:value={$formValues.aller} />
-      </div>
-      <div style="display: flex; align-items: center; justify-content: center;">
-        <button type="submit" class="go">Go!</button>
+    {#if showContent && activeContainerIndex === -1}
+      <div class="expanded-content">
+        <p>
+          <span class="aititle">ai.llergen</span> is your friendly food allergen
+          detector. This handy app can help you identify whether your food product
+          may or may not contain an allergen by prompting you to input its main ingredient
+          and other information. If information is unknown, you may leave it blank.
+        </p>
 
-        {#if isLoading}
-          <div class="loader" />
-        {/if}
+        <p>
+          <span class="disc">DISCLAIMER:</span> ai.llergen is for informational purposes
+          only. It is not a substitute for professional medical advice. Please consult
+          with a qualified healthcare professional before making any dietary decisions
+          or if you have any concerns about food allergies.
+        </p>
+
+        <div class="button-container">
+          <button
+            class="understood-button"
+            on:click={() => handleUnderstoodClick(0)}
+          >
+            Understood
+          </button>
+        </div>
       </div>
-    </form>
+    {/if}
+
+    {#if activeContainerIndex !== -1}
+      {#if activeContainerIndex === 0}
+        <!-- Container 1 -->
+        <div class="expanded-content">
+          <div class="center-container">
+            <label for="product-name" class="input-label">Product Name</label>
+            <input
+              type="text"
+              id="product-name"
+              bind:value={$formValues.product}
+              required
+              class="text-input"
+            />
+          </div>
+          <div class="button-container-L">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(-1)}
+            >
+              <i class="fas fa-arrow-left" />
+            </button>
+          </div>
+          <div class="button-container-R">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(1)}
+            >
+              <i class="fas fa-arrow-right" />
+            </button>
+          </div>
+        </div>
+      {/if}
+
+      {#if activeContainerIndex === 1}
+        <!-- Container 2 -->
+        <div class="expanded-content">
+          <div class="center-container">
+            <label for="product-name" class="input-label">Main Ingredient</label
+            >
+            <input
+              type="text"
+              id="product-name"
+              bind:value={$formValues.ingre}
+              required
+              class="text-input"
+            />
+          </div>
+          <div class="button-container-L">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(0)}
+            >
+              <i class="fas fa-arrow-left" />
+            </button>
+          </div>
+          <div class="button-container-R">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(2)}
+            >
+              <i class="fas fa-arrow-right" />
+            </button>
+          </div>
+        </div>
+      {/if}
+
+      {#if activeContainerIndex === 2}
+        <!-- Container 3 -->
+        <div class="expanded-content">
+          <div class="center-container">
+            <label for="product-name" class="input-label">Sweetener</label>
+            <input
+              type="text"
+              id="product-name"
+              bind:value={$formValues.sweet}
+              required
+              class="text-input"
+            />
+          </div>
+          <div class="button-container-L">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(1)}
+            >
+              <i class="fas fa-arrow-left" />
+            </button>
+          </div>
+          <div class="button-container-R">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(3)}
+            >
+              <i class="fas fa-arrow-right" />
+            </button>
+          </div>
+        </div>
+      {/if}
+
+      {#if activeContainerIndex === 3}
+        <!-- Container 4 -->
+        <div class="expanded-content">
+          <div class="center-container">
+            <label for="product-name" class="input-label">Fat or Oil</label>
+            <input
+              type="text"
+              id="product-name"
+              bind:value={$formValues.fat}
+              required
+              class="text-input"
+            />
+          </div>
+          <div class="button-container-L">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(2)}
+            >
+              <i class="fas fa-arrow-left" />
+            </button>
+          </div>
+          <div class="button-container-R">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(4)}
+            >
+              <i class="fas fa-arrow-right" />
+            </button>
+          </div>
+        </div>
+      {/if}
+
+      {#if activeContainerIndex === 4}
+        <!-- Container 5 -->
+        <div class="expanded-content">
+          <div class="center-container">
+            <label for="product-name" class="input-label">Seasoning</label>
+            <input
+              type="text"
+              id="product-name"
+              bind:value={$formValues.seas}
+              required
+              class="text-input"
+            />
+          </div>
+          <div class="button-container-L">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(3)}
+            >
+              <i class="fas fa-arrow-left" />
+            </button>
+          </div>
+          <div class="button-container-R">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(5)}
+            >
+              <i class="fas fa-arrow-right" />
+            </button>
+          </div>
+        </div>
+      {/if}
+
+      {#if activeContainerIndex === 5}
+        <!-- Container 5 -->
+        <div class="expanded-content">
+          <div class="center-container">
+            <label for="product-name" class="input-label">Allergens</label>
+            <input
+              type="text"
+              id="product-name"
+              bind:value={$formValues.aller}
+              required
+              class="text-input"
+            />
+          </div>
+          <div class="button-container-L">
+            <button
+              class="arrow-button"
+              on:click={() => handleUnderstoodClick(4)}
+            >
+              <i class="fas fa-arrow-left" />
+            </button>
+          </div>
+          <div class="button-container-R">
+            <button class="submit-button" on:click={() => onSubmit()}>
+              Submit
+            </button>
+          </div>
+        </div>
+      {/if}
+    {/if}
   </div>
+
+  {#if showContent}
+    <footer class="footer">
+      <p class="disclaimer">
+        Disclaimer: This is for informational purposes only. Consult with a
+        medical professional regarding food allergies.
+      </p>
+    </footer>
+  {/if}
 </main>
 
 <style>
-  :global(body) {
-    background: #011f4b;
+  @font-face {
+    font-family: "IntroCd";
+    src: url("/fonts/IntroCd-Trial-Rg.otf") format("opentype");
   }
 
-  .all {
+  @font-face {
+    font-family: "RB";
+    src: url("/fonts/RetroBoldy-Regular.otf") format("opentype");
+  }
+
+  :global(html, body) {
+    height: 98%;
+    background-color: #d35354;
+  }
+
+  main {
     display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
     justify-content: center;
     align-items: center;
-    height: 93vh;
+    height: 100%;
   }
 
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
-    font-size: 3.5em;
-    color: aliceblue;
-  }
-
-  .ai {
-    color: #ffa552;
-  }
-  .prompt {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 200;
-    font-size: 22px;
-    color: aliceblue;
-  }
-
-  .prompt2 {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 200;
-    font-size: 16px;
-    color: aliceblue;
-  }
-
-  .textlabel {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 300;
-    font-size: 18px;
-    color: aliceblue;
-    margin-right: 10px;
-    width: 160px;
-  }
-
-  .form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .form {
-    flex: 1;
-    padding: 6px;
-    border: 1px solid #007bff;
+  .hover-text {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ebe3d3;
+    padding: 4px 8px;
     border-radius: 4px;
-    font-size: 16px;
-    color: #333;
-    outline: none;
+    font-family: "IntroCd", sans-serif;
+    font-weight: 200;
+    font-size: 12px;
+    color: #3a3a3a;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
   }
 
-  .form:focus {
-    border-color: #0056b3;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-  }
-
-  .go {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
+  .heading {
+    font-family: "RB", sans-serif;
+    font-size: 6em;
+    color: #ebe3d3;
+    letter-spacing: 3px;
     cursor: pointer;
-    margin-top: 7px;
-    width: 120px;
+    position: relative;
+    opacity: 0;
+    animation: fadeInHeading 0.3s ease-in-out forwards;
   }
 
-  .go:hover {
-    background-color: #0056b3;
+  .heading:hover .hover-text {
+    visibility: visible;
+    opacity: 1;
   }
 
-  .go:active {
-    background-color: #003980;
-  }
-
-  .loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  .loader {
-    border: 7px solid #f3f3f3;
-    border-top: 7px solid #3498db;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 2s linear infinite;
-    margin-left: 15px;
-  }
-
-  @keyframes spin {
+  @keyframes fadeInHeading {
     0% {
-      transform: rotate(0deg);
+      opacity: 0;
     }
     100% {
-      transform: rotate(360deg);
+      opacity: 1;
     }
+  }
+
+  @keyframes fadeInContent {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .expanded-content {
+    text-align: justify;
+    width: 450px;
+    padding: 16px;
+    background-color: #ebe3d3;
+    border-radius: 25px;
+    font-family: "IntroCd", sans-serif;
+    font-weight: 200;
+    font-size: 16px;
+    color: #3a3a3a;
+  }
+
+  .center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .text-input {
+    width: 60%;
+    padding: 9px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    color: #3a3a3a;
+    font-family: "IntroCd", sans-serif;
+    font-size: 17px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-bottom: -10px;
+  }
+
+  .text-input:focus {
+    background-color: #ebe3d3;
+  }
+
+  .input-label {
+    margin-bottom: 10px;
+    color: #3a3a3a;
+    font-size: 35px;
+    font-weight: 350;
+    letter-spacing: 1px;
+  }
+
+  .aititle {
+    color: #db7c7c;
+    font-weight: 350;
+  }
+
+  .disc {
+    color: #d42434;
+    font-weight: 550;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .understood-button {
+    background-color: #3a3a3a;
+    color: #ebe3d3;
+    width: 110px;
+    height: 35px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 23px;
+    font-family: "IntroCd", sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .understood-button:hover {
+    background-color: #555555;
+  }
+
+  .submit-button {
+    background-color: #3a3a3a;
+    color: #ebe3d3;
+    width: 110px;
+    height: 35px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 23px;
+    font-family: "IntroCd", sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-button:hover {
+    background-color: #555555;
+  }
+
+  .button-container-L {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-right: 7px;
+    margin-bottom: -35px;
+  }
+
+  .button-container-R {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: 7px;
+  }
+
+  .button-container-L .arrow-button,
+  .button-container-R .arrow-button {
+    margin-left: 7px;
+    margin-bottom: -7px;
+  }
+
+  .button-container-L .arrow-button,
+  .button-container-R .submit-button {
+    margin-top: 7px;
+  }
+
+  .arrow-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 0;
+  }
+
+  .arrow-button i {
+    color: #3a3a3a; /* Replace with your desired color */
+    font-size: 42px; /* Adjust the font size as needed */
+  }
+
+  .arrow-button i:hover {
+    color: #555555; /* Replace with your desired color */
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .disclaimer {
+    font-family: "IntroCd", sans-serif;
+    font-size: 12px;
+    color: #ebe3d3;
   }
 </style>
