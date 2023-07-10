@@ -9,19 +9,6 @@
     let showContent = false;
     let containerFlags = Array(containerCount).fill(false);
     let activeContainerIndex = -1;
-    let showError = false;
-let errorMessage = "";
-
-function displayError(message) {
-    showError = true;
-    errorMessage = message;
-
-    // Hide the error message after a certain duration (e.g., 3 seconds)
-    setTimeout(() => {
-        showError = false;
-        errorMessage = "";
-    }, 3000); // Adjust the duration as desired
-}
 
     function toggleContent() {
         showContent = !showContent;
@@ -37,24 +24,10 @@ function displayError(message) {
         let formData = $formValues;
 
         for (const key in formData) {
-        if (key === "product" && formData[key] === "") {
-            const errorMessage = "Please enter the name of the product.";
-            displayError(errorMessage);
-            isLoading = false;
-            return;
+            if (formData[key] === "") {
+                formData[key] = "None";
+            }
         }
-
-        if (key === "ingre" && formData[key] === "") {
-            const errorMessage = "Please enter the main ingredient.";
-            displayError(errorMessage);
-            isLoading = false;
-            return;
-        }
-
-        if (formData[key] === "") {
-            formData[key] = "None";
-        }
-    }
 
         console.log(formData);
         const res = await axios.post(
@@ -124,16 +97,14 @@ function displayError(message) {
             {#if activeContainerIndex === 0}
                 <!-- Container 1 -->
                 <div class="expanded-content">
-                    <label for="product-name" class="input-label"
-                        >Product Name</label
-                    >
-                    <input type="text" bind:value={$formValues.product} required />
+                    <div class="center-container">
+                        <label for="product-name" class="input-label">Product Name</label>
+                        <input type="text" id="product-name" bind:value={$formValues.product} required class="text-input" />
+                    </div>
                     <div class="button-container">
-                        <button
-                            class="understood-button"
-                            on:click={() => handleUnderstoodClick(1)}
-                            >Next</button
-                        >
+                        <button class="understood-button" on:click={() => handleUnderstoodClick(1)}>
+                            Next
+                        </button>
                     </div>
                 </div>
             {/if}
@@ -170,10 +141,6 @@ function displayError(message) {
             <!-- Container 6 content -->
             <!-- Next button -->
         {/if}
-    </div>
-
-    <div class="error-message" class:showError={showError}>
-        <p class="error-text">{errorMessage}</p>
     </div>
 
     {#if showContent}
@@ -251,14 +218,6 @@ function displayError(message) {
         }
     }
 
-    .expanded-content-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 10px; /* Adjust the margin as desired */
-        opacity: 0;
-        animation: fadeInContent 0.3s ease-in-out forwards;
-    }
-
     @keyframes fadeInContent {
         0% {
             opacity: 0;
@@ -267,6 +226,7 @@ function displayError(message) {
             opacity: 1;
         }
     }
+    
     .expanded-content {
         text-align: justify;
         width: 450px;
@@ -279,6 +239,37 @@ function displayError(message) {
         color: #3a3a3a;
     }
 
+    .center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.text-input {
+    width: 60%;
+    padding:9px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    color: #3a3a3a;
+    font-family: "IntroCd", sans-serif;
+    font-size: 17px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.text-input:focus {
+    background-color: #ebe3d3;
+}
+
+.input-label {
+    margin-bottom: 10px;
+    color: #3a3a3a;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
     .aititle {
         color: #db7c7c;
         font-weight: 350;
