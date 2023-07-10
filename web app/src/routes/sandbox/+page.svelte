@@ -1,15 +1,22 @@
 <script lang="ts">
-    import "@fontsource/montserrat";
     import axios from "axios";
     import { goto } from "$app/navigation";
     import { food, formValues } from "../../export.js";
     import { onMount } from "svelte";
 
     let isLoading = false;
+    const containerCount = 6; // Number of containers
     let showContent = false;
+    let containerFlags = Array(containerCount).fill(false);
+    let activeContainerIndex = -1;
 
     function toggleContent() {
         showContent = !showContent;
+    }
+
+    function handleUnderstoodClick(index) {
+        activeContainerIndex = index;
+        containerFlags[index] = true;
     }
 
     async function onSubmit() {
@@ -49,15 +56,15 @@
 </script>
 
 <main>
-    {#if !showContent}
-        <p class="heading" on:click={toggleContent}>
-            ai.llergen
-            <span class="hover-text">click to start</span>
-        </p>
-    {/if}
+    <div class="title">
+        {#if !showContent}
+            <p class="heading" on:click={toggleContent}>
+                ai.llergen
+                <span class="hover-text">click to start</span>
+            </p>
+        {/if}
 
-    {#if showContent}
-        <div class="expanded-content-container">
+        {#if showContent && activeContainerIndex === -1}
             <div class="expanded-content">
                 <p>
                     <span class="aititle">ai.llergen</span> is your friendly food
@@ -74,16 +81,82 @@
                     before making any dietary decisions or if you have any concerns
                     about food allergies.
                 </p>
-            </div>
-        </div>
-    {/if}
 
-    <footer class="footer">
-        <p class="disclaimer">
-            Disclaimer: This is for informational purposes only. Consult with a
-            medical professional regarding food allergies.
-        </p>
-    </footer>
+                <div class="button-container">
+                    <button
+                        class="understood-button"
+                        on:click={() => handleUnderstoodClick(0)}
+                    >
+                        Understood
+                    </button>
+                </div>
+            </div>
+        {/if}
+
+        {#if activeContainerIndex !== -1}
+            {#if activeContainerIndex === 0}
+                <!-- Container 1 -->
+                <div class="expanded-content">
+                    <p>
+                        <span class="aititle">ai.llergen</span> is your friendly food
+                        allergen detector. This handy app can help you identify whether
+                        your food product may or may not contain an allergen by prompting
+                        you to input its main ingredient and other information. If information
+                        is unknown, you may leave it blank.
+                    </p>
+                    <div class="button-container">
+                        <button
+                            class="understood-button"
+                            on:click={() => handleUnderstoodClick(1)}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            {/if}
+
+            {#if activeContainerIndex === 1}
+                <!-- Container 2 -->
+                <div class="container">
+                    <!-- Container 2 content -->
+                    <div class="button-container">
+                        <button
+                            class="understood-button"
+                            on:click={() => handleUnderstoodClick(2)}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            {/if}
+
+            <!-- Repeat the pattern for the remaining containers -->
+            <!-- Container 3 -->
+            <!-- Container 3 content -->
+            <!-- Next button -->
+
+            <!-- Container 4 -->
+            <!-- Container 4 content -->
+            <!-- Next button -->
+
+            <!-- Container 5 -->
+            <!-- Container 5 content -->
+            <!-- Next button -->
+
+            <!-- Container 6 -->
+            <!-- Container 6 content -->
+            <!-- Next button -->
+        {/if}
+    </div>
+
+    {#if showContent}
+        <footer class="footer">
+            <p class="disclaimer">
+                Disclaimer: This is for informational purposes only. Consult
+                with a medical professional regarding food allergies.
+            </p>
+        </footer>
+    {/if}
 </main>
 
 <style>
@@ -189,6 +262,30 @@
         font-weight: 550;
     }
 
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .understood-button {
+        background-color: #3a3a3a;
+        color: #ebe3d3;
+        width: 110px;
+        height: 35px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 23px;
+        font-family: "IntroCd", sans-serif;
+        font-weight: 200;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .understood-button:hover {
+        background-color: #555555;
+    }
     .footer {
         position: fixed;
         bottom: 0;
@@ -199,8 +296,8 @@
     }
 
     .disclaimer {
+        font-family: "IntroCd", sans-serif;
         font-size: 12px;
         color: #ebe3d3;
-;
     }
 </style>
