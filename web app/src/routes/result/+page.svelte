@@ -1,7 +1,7 @@
 <script lang="ts">
-    import "@fontsource/montserrat";
     import { goto } from "$app/navigation";
     import { food, formValues } from "../../export.js";
+    import activeContainerIndex  from "../+page.svelte";
     import { onMount } from "svelte";
 
     let product;
@@ -14,7 +14,7 @@
         $formValues.seas = "";
         $formValues.aller = "";
         $formValues.pred = "";
-        goto("/");
+        goto("/", { state: { activeContainerIndex: 2 } });
     }
 
     onMount(() => {
@@ -37,27 +37,42 @@
 </main>
 
 <style>
-    :global(body) {
-        background: rgb(1, 31, 75);
+    @font-face {
+        font-family: "IntroCd";
+        src: url("/fonts/IntroCd-Trial-Rg.otf") format("opentype");
+    }
+
+    @font-face {
+        font-family: "RB";
+        src: url("/fonts/RetroBoldy-Regular.otf") format("opentype");
+    }
+
+    :global(html, body) {
+        height: 98%;
+        background-color: #d35354;
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
     }
 
     .all {
         display: flex;
         flex-direction: column;
-        box-sizing: border-box;
         justify-content: center;
         align-items: center;
-        height: 95vh;
+        height: 100%;
     }
 
-    h1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "Montserrat", sans-serif;
-        font-weight: 700;
+    .caption {
+        font-family: "IntroCd", sans-serif;
+        font-weight: 200;
         font-size: 3em;
-        color: aliceblue;
+        color: #ebe3d3;
+        margin-bottom: 20px;
     }
 
     .pred {
@@ -65,21 +80,22 @@
     }
 
     .back {
-        background-color: #007bff;
-        color: #fff;
+        background-color: #3a3a3a;
+        color: #ebe3d3;
         padding: 10px 20px;
         border: none;
         border-radius: 4px;
         font-size: 16px;
         cursor: pointer;
         width: 90px;
+        transition: background-color 0.3s ease;
     }
 
     .back:hover {
-        background-color: #0056b3;
+        background-color: #555555;
     }
 
     .back:active {
-        background-color: #003980;
+        background-color: #3a3a3a;
     }
 </style>
