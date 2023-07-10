@@ -60,15 +60,30 @@
         <div class="expanded-content-container">
             <div class="expanded-content">
                 <p>
-                    ai.llergen is your friendly food allergen detector. This
-                    handy app can help you identify whether your food product
-                    may or may not contain an allergen by prompting you to input
-                    its main ingredient and other information. If information is
-                    unknown, you may leave it blank.
+                    <span class="aititle">ai.llergen</span> is your friendly food
+                    allergen detector. This handy app can help you identify whether
+                    your food product may or may not contain an allergen by prompting
+                    you to input its main ingredient and other information. If information
+                    is unknown, you may leave it blank.
+                </p>
+
+                <p>
+                    <span class="disc">DISCLAIMER:</span> ai.llergen is for informational
+                    purposes only. It is not a substitute for professional medical
+                    advice. Please consult with a qualified healthcare professional
+                    before making any dietary decisions or if you have any concerns
+                    about food allergies.
                 </p>
             </div>
         </div>
     {/if}
+
+    <footer class="footer">
+        <p class="disclaimer">
+            Disclaimer: This is for informational purposes only. Consult with a
+            medical professional regarding food allergies.
+        </p>
+    </footer>
 </main>
 
 <style>
@@ -111,7 +126,6 @@
         transition: visibility 0s, opacity 0.3s ease-in-out;
     }
 
-
     .heading {
         font-family: "RB", sans-serif;
         font-size: 6em;
@@ -127,7 +141,7 @@
         visibility: visible;
         opacity: 1;
     }
-    
+
     @keyframes fadeInHeading {
         0% {
             opacity: 0;
@@ -163,5 +177,30 @@
         font-weight: 200;
         font-size: 16px;
         color: #3a3a3a;
+    }
+
+    .aititle {
+        color: #db7c7c;
+        font-weight: 350;
+    }
+
+    .disc {
+        color: #d42434;
+        font-weight: 550;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .disclaimer {
+        font-size: 12px;
+        color: #ebe3d3;
+;
     }
 </style>
