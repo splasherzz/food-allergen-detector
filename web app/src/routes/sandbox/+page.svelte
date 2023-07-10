@@ -15,7 +15,11 @@
     }
 
     function handleUnderstoodClick(index) {
-        activeContainerIndex = index;
+        if (index === -1 && activeContainerIndex === 1) {
+            activeContainerIndex = -1;
+        } else {
+            activeContainerIndex = index;
+        }
         containerFlags[index] = true;
     }
 
@@ -109,6 +113,14 @@
                             class="text-input"
                         />
                     </div>
+                    <div class="button-container-L">
+                        <button
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(-1)}
+                        >
+                            <i class="fas fa-arrow-left" />
+                        </button>
+                    </div>
                     <div class="button-container-R">
                         <button
                             class="arrow-button"
@@ -154,22 +166,141 @@
                 </div>
             {/if}
 
-            <!-- Repeat the pattern for the remaining containers -->
-            <!-- Container 3 -->
-            <!-- Container 3 content -->
-            <!-- Next button -->
+            {#if activeContainerIndex === 2}
+                <!-- Container 3 -->
+                <div class="expanded-content">
+                    <div class="center-container">
+                        <label for="product-name" class="input-label"
+                            >Sweetener</label
+                        >
+                        <input
+                            type="text"
+                            id="product-name"
+                            bind:value={$formValues.sweet}
+                            required
+                            class="text-input"
+                        />
+                    </div>
+                    <div class="button-container-L">
+                        <button
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(1)}
+                        >
+                            <i class="fas fa-arrow-left" />
+                        </button>
+                    </div>
+                    <div class="button-container-R">
+                        <button
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(3)}
+                        >
+                            <i class="fas fa-arrow-right" />
+                        </button>
+                    </div>
+                </div>
+            {/if}
 
-            <!-- Container 4 -->
-            <!-- Container 4 content -->
-            <!-- Next button -->
+            {#if activeContainerIndex === 3}
+                <!-- Container 4 -->
+                <div class="expanded-content">
+                    <div class="center-container">
+                        <label for="product-name" class="input-label"
+                            >Fat or Oil</label
+                        >
+                        <input
+                            type="text"
+                            id="product-name"
+                            bind:value={$formValues.fat}
+                            required
+                            class="text-input"
+                        />
+                    </div>
+                    <div class="button-container-L">
+                        <button
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(2)}
+                        >
+                            <i class="fas fa-arrow-left" />
+                        </button>
+                    </div>
+                    <div class="button-container-R">
+                        <button
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(4)}
+                        >
+                            <i class="fas fa-arrow-right" />
+                        </button>
+                    </div>
+                </div>
+            {/if}
 
-            <!-- Container 5 -->
-            <!-- Container 5 content -->
-            <!-- Next button -->
+            {#if activeContainerIndex === 4}
+                <!-- Container 5 -->
+                <div class="expanded-content">
+                    <div class="center-container">
+                        <label for="product-name" class="input-label"
+                            >Seasoning</label
+                        >
+                        <input
+                            type="text"
+                            id="product-name"
+                            bind:value={$formValues.seas}
+                            required
+                            class="text-input"
+                        />
+                    </div>
+                    <div class="button-container-L">
+                        <button
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(3)}
+                        >
+                            <i class="fas fa-arrow-left" />
+                        </button>
+                    </div>
+                    <div class="button-container-R">
+                        <button
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(5)}
+                        >
+                            <i class="fas fa-arrow-right" />
+                        </button>
+                    </div>
+                </div>
+            {/if}
 
-            <!-- Container 6 -->
-            <!-- Container 6 content -->
-            <!-- Next button -->
+            {#if activeContainerIndex === 5}
+                <!-- Container 5 -->
+                <div class="expanded-content">
+                    <div class="center-container">
+                        <label for="product-name" class="input-label"
+                            >Allergens</label
+                        >
+                        <input
+                            type="text"
+                            id="product-name"
+                            bind:value={$formValues.aller}
+                            required
+                            class="text-input"
+                        />
+                    </div>
+                    <div class="button-container-L">
+                        <button
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(4)}
+                        >
+                            <i class="fas fa-arrow-left" />
+                        </button>
+                    </div>
+                    <div class="button-container-R">
+                        <button
+                            class="submit-button"
+                            on:click={() => handleUnderstoodClick(0)}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            {/if}
         {/if}
     </div>
 
@@ -338,26 +469,50 @@
         background-color: #555555;
     }
 
+    .submit-button {
+        background-color: #3a3a3a;
+        color: #ebe3d3;
+        width: 110px;
+        height: 35px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 23px;
+        font-family: "IntroCd", sans-serif;
+        font-weight: 200;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background-color: #555555;
+    }
+
     .button-container-L {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-    margin-right: 7px;
-    margin-bottom: -35px;
-}
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        margin-right: 7px;
+        margin-bottom: -35px;
+    }
 
-.button-container-R {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    margin-left: 7px;
-}
+    .button-container-R {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-left: 7px;
+    }
 
-.button-container-L .arrow-button,
-.button-container-R .arrow-button {
-    margin-left: 7px;
-    margin-bottom: -7px;
-}
+    .button-container-L .arrow-button,
+    .button-container-R .arrow-button {
+        margin-left: 7px;
+        margin-bottom: -7px;
+    }
+
+    .button-container-L .arrow-button,
+    .button-container-R .submit-button {
+        margin-top: 7px;
+    }
 
     .arrow-button {
         background-color: transparent;
