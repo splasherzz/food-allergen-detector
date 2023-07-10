@@ -98,12 +98,23 @@
                 <!-- Container 1 -->
                 <div class="expanded-content">
                     <div class="center-container">
-                        <label for="product-name" class="input-label">Product Name</label>
-                        <input type="text" id="product-name" bind:value={$formValues.product} required class="text-input" />
+                        <label for="product-name" class="input-label"
+                            >Product Name</label
+                        >
+                        <input
+                            type="text"
+                            id="product-name"
+                            bind:value={$formValues.product}
+                            required
+                            class="text-input"
+                        />
                     </div>
                     <div class="button-container">
-                        <button class="understood-button" on:click={() => handleUnderstoodClick(1)}>
-                            Next
+                        <button
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(1)}
+                        >
+                            <i class="fas fa-arrow-right" />
                         </button>
                     </div>
                 </div>
@@ -226,7 +237,7 @@
             opacity: 1;
         }
     }
-    
+
     .expanded-content {
         text-align: justify;
         width: 450px;
@@ -240,36 +251,37 @@
     }
 
     .center-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
 
-.text-input {
-    width: 60%;
-    padding:9px;
-    border: none;
-    border-radius: 8px;
-    background-color: #f5f5f5;
-    color: #3a3a3a;
-    font-family: "IntroCd", sans-serif;
-    font-size: 17px;
-    text-align: center;
-    transition: background-color 0.3s ease;
-}
+    .text-input {
+        width: 60%;
+        padding: 9px;
+        border: none;
+        border-radius: 8px;
+        background-color: #f5f5f5;
+        color: #3a3a3a;
+        font-family: "IntroCd", sans-serif;
+        font-size: 17px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
 
-.text-input:focus {
-    background-color: #ebe3d3;
-}
+    .text-input:focus {
+        background-color: #ebe3d3;
+    }
 
-.input-label {
-    margin-bottom: 10px;
-    color: #3a3a3a;
-    font-size: 30px;
-    letter-spacing: 1px;
-}
+    .input-label {
+        margin-bottom: 10px;
+        color: #3a3a3a;
+        font-size: 35px;
+        font-weight: 350;
+        letter-spacing: 1px;
+    }
     .aititle {
         color: #db7c7c;
         font-weight: 350;
@@ -304,6 +316,24 @@
     .understood-button:hover {
         background-color: #555555;
     }
+
+    .arrow-button {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        font-size: 0;
+    }
+
+    .arrow-button i {
+        color: #3a3a3a; /* Replace with your desired color */
+        font-size: 40px; /* Adjust the font size as needed */
+    }
+
+    .arrow-button i:hover {
+        color: #555555; /* Replace with your desired color */
+    }
+
     .footer {
         position: fixed;
         bottom: 0;
