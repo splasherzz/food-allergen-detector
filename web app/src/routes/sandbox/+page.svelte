@@ -9,6 +9,19 @@
     let showContent = false;
     let containerFlags = Array(containerCount).fill(false);
     let activeContainerIndex = -1;
+    let showError = false;
+let errorMessage = "";
+
+function displayError(message) {
+    showError = true;
+    errorMessage = message;
+
+    // Hide the error message after a certain duration (e.g., 3 seconds)
+    setTimeout(() => {
+        showError = false;
+        errorMessage = "";
+    }, 3000); // Adjust the duration as desired
+}
 
     function toggleContent() {
         showContent = !showContent;
@@ -24,10 +37,24 @@
         let formData = $formValues;
 
         for (const key in formData) {
-            if (formData[key] === "") {
-                formData[key] = "None";
-            }
+        if (key === "product" && formData[key] === "") {
+            const errorMessage = "Please enter the name of the product.";
+            displayError(errorMessage);
+            isLoading = false;
+            return;
         }
+
+        if (key === "ingre" && formData[key] === "") {
+            const errorMessage = "Please enter the main ingredient.";
+            displayError(errorMessage);
+            isLoading = false;
+            return;
+        }
+
+        if (formData[key] === "") {
+            formData[key] = "None";
+        }
+    }
 
         console.log(formData);
         const res = await axios.post(
@@ -97,20 +124,16 @@
             {#if activeContainerIndex === 0}
                 <!-- Container 1 -->
                 <div class="expanded-content">
-                    <p>
-                        <span class="aititle">ai.llergen</span> is your friendly food
-                        allergen detector. This handy app can help you identify whether
-                        your food product may or may not contain an allergen by prompting
-                        you to input its main ingredient and other information. If information
-                        is unknown, you may leave it blank.
-                    </p>
+                    <label for="product-name" class="input-label"
+                        >Product Name</label
+                    >
+                    <input type="text" bind:value={$formValues.product} required />
                     <div class="button-container">
                         <button
                             class="understood-button"
                             on:click={() => handleUnderstoodClick(1)}
+                            >Next</button
                         >
-                            Next
-                        </button>
                     </div>
                 </div>
             {/if}
@@ -147,6 +170,10 @@
             <!-- Container 6 content -->
             <!-- Next button -->
         {/if}
+    </div>
+
+    <div class="error-message" class:showError={showError}>
+        <p class="error-text">{errorMessage}</p>
     </div>
 
     {#if showContent}
