@@ -109,7 +109,7 @@
                             class="text-input"
                         />
                     </div>
-                    <div class="button-container">
+                    <div class="button-container-R">
                         <button
                             class="arrow-button"
                             on:click={() => handleUnderstoodClick(1)}
@@ -269,6 +269,7 @@
         font-size: 17px;
         text-align: center;
         transition: background-color 0.3s ease;
+        margin-bottom: -10px;
     }
 
     .text-input:focus {
@@ -282,6 +283,7 @@
         font-weight: 350;
         letter-spacing: 1px;
     }
+
     .aititle {
         color: #db7c7c;
         font-weight: 350;
@@ -317,6 +319,12 @@
         background-color: #555555;
     }
 
+    .button-container-R {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 7px;
+    }
+
     .arrow-button {
         background-color: transparent;
         border: none;
@@ -327,7 +335,7 @@
 
     .arrow-button i {
         color: #3a3a3a; /* Replace with your desired color */
-        font-size: 40px; /* Adjust the font size as needed */
+        font-size: 42px; /* Adjust the font size as needed */
     }
 
     .arrow-button i:hover {
