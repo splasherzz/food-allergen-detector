@@ -122,14 +122,33 @@
 
             {#if activeContainerIndex === 1}
                 <!-- Container 2 -->
-                <div class="container">
-                    <!-- Container 2 content -->
-                    <div class="button-container">
+                <div class="expanded-content">
+                    <div class="center-container">
+                        <label for="product-name" class="input-label"
+                            >Main Ingredient</label
+                        >
+                        <input
+                            type="text"
+                            id="product-name"
+                            bind:value={$formValues.ingre}
+                            required
+                            class="text-input"
+                        />
+                    </div>
+                    <div class="button-container-L">
                         <button
-                            class="understood-button"
+                            class="arrow-button"
+                            on:click={() => handleUnderstoodClick(0)}
+                        >
+                            <i class="fas fa-arrow-left" />
+                        </button>
+                    </div>
+                    <div class="button-container-R">
+                        <button
+                            class="arrow-button"
                             on:click={() => handleUnderstoodClick(2)}
                         >
-                            Next
+                            <i class="fas fa-arrow-right" />
                         </button>
                     </div>
                 </div>
@@ -319,11 +338,26 @@
         background-color: #555555;
     }
 
-    .button-container-R {
-        display: flex;
-        justify-content: flex-end;
-        margin-right: 7px;
-    }
+    .button-container-L {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-right: 7px;
+    margin-bottom: -35px;
+}
+
+.button-container-R {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: 7px;
+}
+
+.button-container-L .arrow-button,
+.button-container-R .arrow-button {
+    margin-left: 7px;
+    margin-bottom: -7px;
+}
 
     .arrow-button {
         background-color: transparent;
