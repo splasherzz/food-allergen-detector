@@ -294,7 +294,7 @@
                     <div class="button-container-R">
                         <button
                             class="submit-button"
-                            on:click={() => handleUnderstoodClick(0)}
+                            on:click={() => onSubmit()}
                         >
                             Submit
                         </button>
