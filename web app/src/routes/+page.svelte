@@ -352,6 +352,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
+    animation: fadeInContent 0.3s ease-in-out forwards;
   }
 
   .image-container img {
