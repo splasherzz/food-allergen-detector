@@ -4,16 +4,18 @@
   import { food, formValues } from "../export.js";
   import { onMount } from "svelte";
 
-  let isLoading = false;
+  //let isLoading = false;
   const containerCount = 6; // Number of containers
   let showContent = false;
   let containerFlags = Array(containerCount).fill(false);
   let activeContainerIndex = -1;
 
+  // checks whether to show content (for footer)
   function toggleContent() {
     showContent = !showContent;
   }
 
+  // mechanism for going to next containers (forms)
   function handleUnderstoodClick(index) {
     if (index === -1 && activeContainerIndex === 1) {
       activeContainerIndex = -1;
@@ -23,6 +25,7 @@
     containerFlags[index] = true;
   }
 
+  // handles form submission to AI model
   async function onSubmit() {
     isLoading = true;
     let formData = $formValues;
@@ -53,9 +56,9 @@
 
     $formValues.pred = res.data;
     console.log($formValues.pred);
-    isLoading = false;
+    //isLoading = false;
     food.set(formData.product);
-    goto("/result", { state: { activeContainerIndex } });
+    goto("/result");
   }
 </script>
 
@@ -526,12 +529,12 @@
   }
 
   .arrow-button i {
-    color: #3a3a3a; /* Replace with your desired color */
-    font-size: 42px; /* Adjust the font size as needed */
+    color: #3a3a3a;
+    font-size: 42px;
   }
 
   .arrow-button i:hover {
-    color: #555555; /* Replace with your desired color */
+    color: #555555;
   }
 
   .footer {

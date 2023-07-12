@@ -13,7 +13,7 @@
         $formValues.seas = "";
         $formValues.aller = "";
         $formValues.pred = "";
-        goto("/", { state: { activeContainerIndex: 2 } });
+        goto("/");
     }
 
     onMount(() => {
