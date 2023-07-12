@@ -7,6 +7,7 @@
   //let isLoading = false;
   const containerCount = 6; // Number of containers
   let showContent = false;
+  let showLoadingBar = false;
   let containerFlags = Array(containerCount).fill(false);
   let activeContainerIndex = -1;
 
@@ -36,6 +37,7 @@
     }
 
     console.log(formData);
+    showLoadingBar = true;
     const res = await axios.post(
       "https://splasherz.pythonanywhere.com/predict",
       {
@@ -58,6 +60,7 @@
     //isLoading = false;
     food.set(formData.product);
     goto("/result");
+    showLoadingBar = false;
   }
 </script>
 
@@ -293,8 +296,15 @@
   <div class="image-container">
     <img
       src="https://github.com/splasherzz/food-allergen-detector/blob/main/web%20app/static/pancake.png?raw=true"
+      alt="Pancake"
     />
   </div>
+
+  {#if showLoadingBar}
+    <div class="loading-bar">
+      <div class="loading-progress" style="width: 0%;" />
+    </div>
+  {/if}
 
   {#if showContent}
     <footer class="footer">
@@ -351,6 +361,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
+    animation: fadeInContent 0.3s ease-in-out forwards;
   }
 
   .image-container img {
@@ -528,12 +539,29 @@
   }
 
   .arrow-button i {
-    color: #3a3a3a; 
-    font-size: 42px; 
+    color: #3a3a3a;
+    font-size: 42px;
   }
 
   .arrow-button i:hover {
     color: #555555;
+  }
+
+  .loading-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 6px;
+    background-color: #ebe3d3;
+    z-index: 9999;
+  }
+
+  .loading-progress {
+    height: 100%;
+    background-color: #d35354;
+     transition: width 0.3s ease, background-color 0.3s ease; /* Add transition effect for width and background-color */
+    width: 0%; /* Start with a width of 0% */
   }
 
   .footer {
