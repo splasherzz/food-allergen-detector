@@ -31,30 +31,30 @@
 
 <main>
     <div class="image-container">
-      <img
-        src="https://github.com/splasherzz/food-allergen-detector/blob/main/web%20app/static/allergen.png?raw=true"
-        alt="Contains allergens"
-      />
+        <img
+            src="https://github.com/splasherzz/food-allergen-detector/blob/main/web%20app/static/allergen.png?raw=true"
+            alt="Contains allergens"
+        />
     </div>
-  
+
     <div class="container floating">
-      <h1 class="caption">
-        <span class="food-name">{$food}</span><br />
-        <span class="pred">{$formValues.pred}</span>
-      </h1>
-  
-      <div class="button-container">
-        <button type="button" class="back" on:click={goBack}>Back</button>
-      </div>
+        <h1 class="caption">
+            <span class="food-name">{$food}</span><br />
+            <span class="pred">{$formValues.pred}</span>
+        </h1>
+
+        <div class="button-container">
+            <button type="button" class="back" on:click={goBack}>Back</button>
+        </div>
     </div>
-  
+
     <footer class="footer">
-      <p class="disclaimer">
-        Disclaimer: This is for informational purposes only. Consult with a
-        medical professional regarding food allergies.
-      </p>
+        <p class="disclaimer">
+            Disclaimer: This is for informational purposes only. Consult with a
+            medical professional regarding food allergies.
+        </p>
     </footer>
-  </main>
+</main>
 
 <style>
     @font-face {
@@ -90,7 +90,7 @@
         width: 450px;
         height: auto;
         margin-bottom: 20px;
-        filter: contrast(75%);
+        filter: contrast(80%) saturate(75%);
     }
 
     .container {
@@ -107,17 +107,20 @@
     }
 
     .container.floating {
-    animation: floatAnimation 2s infinite alternate;
-  }
+        animation: floatAnimation 2s infinite alternate;
+    }
 
-  @keyframes floatAnimation {
-    from {
-      transform: translate(-50%, -50%);
+    @keyframes floatAnimation {
+        from {
+            transform: translate(-50%, -50%);
+        }
+        to {
+            transform: translate(
+                -50%,
+                -45%
+            ); /* Adjust the floating height as needed */
+        }
     }
-    to {
-      transform: translate(-50%, -45%); /* Adjust the floating height as needed */
-    }
-  }
     .caption {
         font-family: "IntroCd", sans-serif;
         font-weight: 200;
