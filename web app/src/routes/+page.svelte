@@ -27,7 +27,6 @@
 
   // handles form submission to AI model
   async function onSubmit() {
-    isLoading = true;
     let formData = $formValues;
 
     for (const key in formData) {
@@ -352,7 +351,6 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    animation: fadeInContent 0.3s ease-in-out forwards;
   }
 
   .image-container img {
@@ -530,8 +528,8 @@
   }
 
   .arrow-button i {
-    color: #3a3a3a;
-    font-size: 42px;
+    color: #3a3a3a; 
+    font-size: 42px; 
   }
 
   .arrow-button i:hover {
