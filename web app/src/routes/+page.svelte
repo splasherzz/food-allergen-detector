@@ -10,6 +10,7 @@
   let containerFlags = Array(containerCount).fill(false);
   let activeContainerIndex = -1;
 
+
   function toggleContent() {
     showContent = !showContent;
   }
@@ -314,6 +315,24 @@
     background-color: #d35354;
   }
 
+  @keyframes fadeInHeading {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInContent {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
   main {
     display: flex;
     justify-content: center;
@@ -354,24 +373,6 @@
     opacity: 1;
   }
 
-  @keyframes fadeInHeading {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeInContent {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
   .expanded-content {
     text-align: justify;
     width: 450px;
@@ -382,6 +383,7 @@
     font-weight: 200;
     font-size: 16px;
     color: #3a3a3a;
+    animation: fadeInContent 0.3s ease-in-out forwards;
   }
 
   .center-container {
