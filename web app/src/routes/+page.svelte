@@ -10,7 +10,6 @@
   let containerFlags = Array(containerCount).fill(false);
   let activeContainerIndex = -1;
 
-
   function toggleContent() {
     showContent = !showContent;
   }
@@ -289,6 +288,12 @@
     {/if}
   </div>
 
+  <div class="image-container">
+    <img
+      src="https://github.com/splasherzz/food-allergen-detector/blob/main/web%20app/static/pancake.png?raw=true"
+    />
+  </div>
+
   {#if showContent}
     <footer class="footer">
       <p class="disclaimer">
@@ -332,12 +337,24 @@
       opacity: 1;
     }
   }
-  
+
   main {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+  }
+
+  .image-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+
+  .image-container img {
+    width: 450px;
+    height: auto;
+    margin-bottom: 20px;
   }
 
   .hover-text {
