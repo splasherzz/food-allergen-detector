@@ -23,29 +23,29 @@
     });
 
     $: if ($formValues.pred === "Does not contain") {
-        $formValues.pred = "May not contain allergens";
+        $formValues.pred = "may not contain allergens";
     } else {
-        $formValues.pred = "May contain allergens";
+        $formValues.pred = "may contain allergens";
     }
 </script>
 
 <main>
-    <div class="image-container">
-        <img
-            src="https://github.com/splasherzz/food-allergen-detector/blob/main/web%20app/static/allergen.png?raw=true"
-            alt="Contains allergens"
-        />
-    </div>
-
     <div class="container floating">
         <h1 class="caption">
             <span class="food-name">{$food}</span><br />
             <span class="pred">{$formValues.pred}</span>
         </h1>
 
+        <!--
         <div class="button-container">
             <button type="button" class="back" on:click={goBack}>Back</button>
-        </div>
+        </div -->
+
+        <img
+            src="https://github.com/splasherzz/food-allergen-detector/blob/main/web%20app/static/allergen.png?raw=true"
+            alt="Contains allergens"
+            class="result-contains"
+        />
     </div>
 
     <footer class="footer">
@@ -79,6 +79,7 @@
         height: 100%;
     }
 
+    /*
     .image-container {
         position: fixed;
         bottom: 0;
@@ -92,7 +93,7 @@
         margin-bottom: 20px;
         filter: contrast(80%) saturate(75%);
     }
-
+    */
     .container {
         display: flex;
         text-align: center;
@@ -100,16 +101,25 @@
         justify-content: center;
         align-items: center;
         background-color: #ebe3d3;
-        border-radius: 25px;
+        border-radius: 10px;
         padding: 16px;
-        width: 450px;
+        width: 700px;
+        height: 500px;
         margin: 0 auto;
     }
 
+    .result-contains {
+        width: 350px;
+        height: auto;
+        margin-bottom: -12px;
+        filter: contrast(80%) saturate(75%);
+    }
+    /*
     .container.floating {
         animation: floatAnimation 2s infinite alternate;
     }
 
+    
     @keyframes floatAnimation {
         from {
             transform: translate(-50%, -50%);
@@ -118,9 +128,11 @@
             transform: translate(
                 -50%,
                 -45%
-            ); /* Adjust the floating height as needed */
+            ); 
         }
     }
+    */
+
     .caption {
         font-family: "IntroCd", sans-serif;
         font-weight: 200;
@@ -132,12 +144,15 @@
 
     .food-name {
         color: #3a3a3a;
+        font-weight: 450;
     }
 
     .pred {
         color: #db7c7c;
+        font-weight: 600;
     }
 
+    /*
     .button-container {
         display: flex;
         justify-content: center;
@@ -163,6 +178,7 @@
     .back:active {
         background-color: #3a3a3a;
     }
+    */
 
     .footer {
         position: fixed;
