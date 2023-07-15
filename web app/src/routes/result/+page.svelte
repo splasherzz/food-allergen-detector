@@ -4,6 +4,8 @@
     import { onMount } from "svelte";
 
     let product;
+    let resultSrc;
+    let resultCont;
 
     function goBack() {
         $formValues.product = "";
@@ -24,8 +26,12 @@
 
     $: if ($formValues.pred === "Does not contain") {
         $formValues.pred = "may not contain allergens";
+        resultSrc = "nogen.png";
+        resultCont = "result-none";
     } else {
         $formValues.pred = "may contain allergens";
+        resultSrc = "allergen.png";
+        resultCont = "result-contains";
     }
 </script>
 
@@ -40,15 +46,10 @@
             <span class="pred">{$formValues.pred}</span>
         </h1>
 
-        <!--
-        <div class="button-container">
-            <button type="button" class="back" on:click={goBack}>Back</button>
-        </div -->
-
         <img
-            src="https://github.com/splasherzz/food-allergen-detector/blob/main/web%20app/static/allergen.png?raw=true"
-            alt="Contains allergens"
-            class="result-contains"
+            src={resultSrc}
+            alt="result pic"
+            class={resultCont}
         />
     </div>
 
@@ -96,6 +97,7 @@
         height: 500px;
         margin: 0 auto;
         position: relative;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .home-icon {
@@ -116,7 +118,7 @@
     }
 
     .home-icon:hover {
-        color: #555555; /* Adjust the color when hovering over the arrow */
+        color: #555555; 
     }
 
     .caption {
@@ -142,6 +144,13 @@
         width: 350px;
         height: auto;
         margin-bottom: -12px;
+        filter: contrast(80%) saturate(75%);
+    }
+
+    .result-none {
+        width: 250px;
+        height: auto;
+        margin-bottom: -31px;
         filter: contrast(80%) saturate(75%);
     }
 
