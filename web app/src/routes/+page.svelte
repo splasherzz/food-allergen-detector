@@ -295,8 +295,8 @@
 
   <div class="image-container">
     <img
-      src="https://github.com/splasherzz/food-allergen-detector/blob/main/web%20app/static/pancake.png?raw=true"
-      alt="Pancake"
+      src="https://github.com/splasherzz/food-allergen-detector/blob/main/web%20app/static/steak.png?raw=true"
+      alt="steak"
     />
   </div>
 
@@ -365,9 +365,10 @@
   }
 
   .image-container img {
-    width: 450px;
+    width: 420px;
     height: auto;
-    margin-bottom: 20px;
+    margin-right: 14px;
+    margin-bottom: 6px;
   }
 
   .hover-text {
