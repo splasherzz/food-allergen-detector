@@ -31,6 +31,10 @@
 
 <main>
     <div class="container floating">
+        <button class="home-icon" on:click={goBack}>
+            <i class="fas fa-home" />
+        </button>
+
         <h1 class="caption">
             <span class="food-name">{$food}</span><br />
             <span class="pred">{$formValues.pred}</span>
@@ -79,21 +83,6 @@
         height: 100%;
     }
 
-    /*
-    .image-container {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        animation: fadeInContent 0.3s ease-in-out forwards;
-    }
-
-    .image-container img {
-        width: 450px;
-        height: auto;
-        margin-bottom: 20px;
-        filter: contrast(80%) saturate(75%);
-    }
-    */
     .container {
         display: flex;
         text-align: center;
@@ -106,32 +95,29 @@
         width: 700px;
         height: 500px;
         margin: 0 auto;
+        position: relative;
     }
 
-    .result-contains {
-        width: 350px;
-        height: auto;
-        margin-bottom: -12px;
-        filter: contrast(80%) saturate(75%);
-    }
-    /*
-    .container.floating {
-        animation: floatAnimation 2s infinite alternate;
+    .home-icon {
+        position: absolute;
+        top: 17px;
+        left: 17px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        color: #3a3a3a;
+        text-decoration: none;
+        font-size: 1.6em;
+        background-color: transparent;
+        border: none;
     }
 
-    
-    @keyframes floatAnimation {
-        from {
-            transform: translate(-50%, -50%);
-        }
-        to {
-            transform: translate(
-                -50%,
-                -45%
-            ); 
-        }
+    .home-icon:hover {
+        color: #555555; /* Adjust the color when hovering over the arrow */
     }
-    */
 
     .caption {
         font-family: "IntroCd", sans-serif;
@@ -152,33 +138,12 @@
         font-weight: 600;
     }
 
-    /*
-    .button-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
+    .result-contains {
+        width: 350px;
+        height: auto;
+        margin-bottom: -12px;
+        filter: contrast(80%) saturate(75%);
     }
-
-    .back {
-        background-color: #3a3a3a;
-        color: #ebe3d3;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 23px;
-        font-size: 16px;
-        cursor: pointer;
-        width: 90px;
-        transition: background-color 0.3s ease;
-    }
-
-    .back:hover {
-        background-color: #555555;
-    }
-
-    .back:active {
-        background-color: #3a3a3a;
-    }
-    */
 
     .footer {
         position: fixed;
