@@ -26,6 +26,18 @@
     containerFlags[index] = true;
   }
 
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      // If Enter key is pressed, go to the next container
+      handleUnderstoodClick(activeContainerIndex + 1);
+    }
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      onSubmit();
+    }
+  }
   // handles form submission to AI model
   async function onSubmit() {
     let formData = $formValues;
@@ -112,6 +124,8 @@
               bind:value={$formValues.product}
               required
               class="text-input"
+              on:keydown={handleKeyPress}
+              autofocus
             />
           </div>
           <div class="button-container-L">
@@ -145,6 +159,8 @@
               bind:value={$formValues.ingre}
               required
               class="text-input"
+              on:keydown={handleKeyPress}
+              autofocus
             />
           </div>
           <div class="button-container-L">
@@ -177,6 +193,8 @@
               bind:value={$formValues.sweet}
               required
               class="text-input"
+              on:keydown={handleKeyPress}
+              autofocus
             />
           </div>
           <div class="button-container-L">
@@ -209,6 +227,8 @@
               bind:value={$formValues.fat}
               required
               class="text-input"
+              on:keydown={handleKeyPress}
+              autofocus
             />
           </div>
           <div class="button-container-L">
@@ -241,6 +261,8 @@
               bind:value={$formValues.seas}
               required
               class="text-input"
+              on:keydown={handleKeyPress}
+              autofocus
             />
           </div>
           <div class="button-container-L">
@@ -273,6 +295,8 @@
               bind:value={$formValues.aller}
               required
               class="text-input"
+              on:keydown={handleKeyDown}
+              autofocus
             />
           </div>
           <div class="button-container-L">
