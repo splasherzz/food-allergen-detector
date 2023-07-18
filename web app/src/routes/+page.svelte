@@ -26,12 +26,21 @@
     containerFlags[index] = true;
   }
 
+  // mechanism handling pressing of enter to go to the next container (form)
   function handleKeyPress(event) {
-    if (event.key === "Enter") {
-      // If Enter key is pressed, go to the next container
+  if (event.key === "Enter") {
+    if (activeContainerIndex === 0 && !$formValues.product) {
+      // If Enter key is pressed in the first container and product field is empty, show a warning or take appropriate action
+      console.log("Product field must be filled!");
+    } else if (activeContainerIndex === 1 && (!$formValues.product || !$formValues.ingre)) {
+      // If Enter key is pressed in the second container and either product or ingre field is empty, show a warning or take appropriate action
+      console.log("Both product and main ingredient fields must be filled!");
+    } else {
+      // If Enter key is pressed and all required fields are filled, go to the next container
       handleUnderstoodClick(activeContainerIndex + 1);
     }
   }
+}
 
   function handleKeyDown(event) {
     if (event.key === "Enter") {
@@ -140,6 +149,7 @@
             <button
               class="arrow-button"
               on:click={() => handleUnderstoodClick(1)}
+              disabled={!$formValues.product}
             >
               <i class="fas fa-arrow-right" />
             </button>
@@ -151,7 +161,7 @@
         <!-- Container 2 -->
         <div class="expanded-content">
           <div class="center-container">
-            <label for="product-name" class="input-label">Main Ingredient</label
+            <label for="main-ingre" class="input-label">Main Ingredient</label
             >
             <input
               type="text"
@@ -175,6 +185,7 @@
             <button
               class="arrow-button"
               on:click={() => handleUnderstoodClick(2)}
+              disabled={!$formValues.ingre}
             >
               <i class="fas fa-arrow-right" />
             </button>
