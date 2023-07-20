@@ -46,17 +46,15 @@
             <span class="pred">{$formValues.pred}</span>
         </h1>
 
-        <img
-            src={resultSrc}
-            alt="result pic"
-            class={resultCont}
-        />
+        <img src={resultSrc} alt="result pic" class={resultCont} />
     </div>
 
     <footer class="footer">
         <p class="disclaimer">
             Disclaimer: This is for informational purposes only. Consult with a
-            medical professional regarding food allergies.
+            medical professional regarding food allergies.&nbsp;<span
+                class="copy">&copy;</span
+            >&nbsp;JADE
         </p>
     </footer>
 </main>
@@ -118,7 +116,7 @@
     }
 
     .home-icon:hover {
-        color: #555555; 
+        color: #555555;
     }
 
     .caption {
@@ -167,5 +165,9 @@
         font-family: "IntroCd", sans-serif;
         font-size: 12px;
         color: #ebe3d3;
+    }
+
+    .copy {
+        font-family: "Courier New";
     }
 </style>

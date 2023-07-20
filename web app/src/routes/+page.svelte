@@ -3,6 +3,7 @@
   import { goto } from "$app/navigation";
   import { food, formValues } from "../export.js";
   import { onMount } from "svelte";
+  //let ingreInput;
 
   //let isLoading = false;
   const containerCount = 6; // Number of containers
@@ -10,6 +11,7 @@
   let showLoadingBar = false;
   let containerFlags = Array(containerCount).fill(false);
   let activeContainerIndex = -1;
+  let showWarning = false;
 
   // checks whether to show content (for footer)
   function toggleContent() {
@@ -24,23 +26,28 @@
       activeContainerIndex = index;
     }
     containerFlags[index] = true;
+
+    if (showWarning) {
+      showWarning = false; // Hide the warning message after proceeding to the next container
+    }
   }
 
   // mechanism handling pressing of enter to go to the next container (form)
   function handleKeyPress(event) {
-  if (event.key === "Enter") {
-    if (activeContainerIndex === 0 && !$formValues.product) {
-      // If Enter key is pressed in the first container and product field is empty, show a warning or take appropriate action
-      console.log("Product field must be filled!");
-    } else if (activeContainerIndex === 1 && (!$formValues.product || !$formValues.ingre)) {
-      // If Enter key is pressed in the second container and either product or ingre field is empty, show a warning or take appropriate action
-      console.log("Both product and main ingredient fields must be filled!");
-    } else {
-      // If Enter key is pressed and all required fields are filled, go to the next container
-      handleUnderstoodClick(activeContainerIndex + 1);
+    if (event.key === "Enter") {
+      if (activeContainerIndex === 0 && !$formValues.product) {
+        showWarning = true; // Show the warning message
+      } else if (
+        activeContainerIndex === 1 &&
+        (!$formValues.product || !$formValues.ingre)
+      ) {
+        showWarning = true; // Show the warning message
+      } else {
+        showWarning = false; // Hide the warning message
+        handleUnderstoodClick(activeContainerIndex + 1); // Proceed to the next container
+      }
     }
   }
-}
 
   function handleKeyDown(event) {
     if (event.key === "Enter") {
@@ -78,7 +85,6 @@
 
     $formValues.pred = res.data;
     console.log($formValues.pred);
-    //isLoading = false;
     food.set(formData.product);
     goto("/result");
     showLoadingBar = false;
@@ -161,8 +167,7 @@
         <!-- Container 2 -->
         <div class="expanded-content">
           <div class="center-container">
-            <label for="main-ingre" class="input-label">Main Ingredient</label
-            >
+            <label for="main-ingre" class="input-label">Main Ingredient</label>
             <input
               type="text"
               id="product-name"
@@ -197,7 +202,7 @@
         <!-- Container 3 -->
         <div class="expanded-content">
           <div class="center-container">
-            <label for="product-name" class="input-label">Sweetener</label>
+            <label for="sweet" class="input-label">Sweetener</label>
             <input
               type="text"
               id="product-name"
@@ -231,7 +236,7 @@
         <!-- Container 4 -->
         <div class="expanded-content">
           <div class="center-container">
-            <label for="product-name" class="input-label">Fat or Oil</label>
+            <label for="fat-oil" class="input-label">Fat or Oil</label>
             <input
               type="text"
               id="product-name"
@@ -265,7 +270,7 @@
         <!-- Container 5 -->
         <div class="expanded-content">
           <div class="center-container">
-            <label for="product-name" class="input-label">Seasoning</label>
+            <label for="season" class="input-label">Seasoning</label>
             <input
               type="text"
               id="product-name"
@@ -299,7 +304,7 @@
         <!-- Container 5 -->
         <div class="expanded-content">
           <div class="center-container">
-            <label for="product-name" class="input-label">Allergens</label>
+            <label for="allergens" class="input-label">Allergens</label>
             <input
               type="text"
               id="product-name"
@@ -345,7 +350,9 @@
     <footer class="footer">
       <p class="disclaimer">
         Disclaimer: This is for informational purposes only. Consult with a
-        medical professional regarding food allergies.
+        medical professional regarding food allergies.&nbsp;<span class="copy"
+          >&copy;</span
+        >&nbsp;JADE
       </p>
     </footer>
   {/if}
@@ -472,6 +479,7 @@
     text-align: center;
     transition: background-color 0.3s ease;
     margin-bottom: -10px;
+    box-shadow: none;
   }
 
   .text-input:focus {
@@ -596,7 +604,7 @@
   .loading-progress {
     height: 100%;
     background-color: #d35354;
-     transition: width 0.3s ease, background-color 0.3s ease; /* Add transition effect for width and background-color */
+    transition: width 0.3s ease, background-color 0.3s ease; /* Add transition effect for width and background-color */
     width: 0%; /* Start with a width of 0% */
   }
 
@@ -613,5 +621,9 @@
     font-family: "IntroCd", sans-serif;
     font-size: 12px;
     color: #ebe3d3;
+  }
+
+  .copy {
+    font-family: "Courier New";
   }
 </style>
