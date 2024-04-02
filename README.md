@@ -1,12 +1,22 @@
 # AI for AI: Utilizing Artificial Intelligence for Allergen Identification in Food
-by Juan Antonio Bonuan, Dean Ramirez, Julia Sabado & Andrei Tiangco
+*by Juan Antonio Bonuan, Dean Ramirez, Julia Sabado & Andrei Tiangco*
 <br>
-CS 180 Artificial Intelligence Course
 <br>
-Department of Computer Science
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) 	![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white) ![Hosted on Google Colabs](https://img.shields.io/badge/Colab-F9AB00?style=for-the-badge&logo=googlecolab&color=525252) ![PythonAnywhere](https://img.shields.io/badge/pythonanywhere-%232F9FD7.svg?style=for-the-badge&logo=pythonanywhere&logoColor=151515)
 <br>
-University of the Philippines Diliman
+<br>
+[Live Site](https://food-allergen-detector.vercel.app) | [Google Colab](https://colab.research.google.com/drive/1fRyfwq4_TmldYD-slHBYG9k1nw0lXXr4?usp=sharing)
 
+![Homepage](https://github.com/splasherzz/food-allergen-detector/blob/3655cc9242918ba7e1da2f6c1f5b6174872538c8/web%20app/static/landing.png?raw=true)
+*Homepage*
+
+![Text prompt](https://github.com/splasherzz/food-allergen-detector/blob/3655cc9242918ba7e1da2f6c1f5b6174872538c8/web%20app/static/prompt.png?raw=true)
+*Text prompts*
+
+![Result page](https://github.com/splasherzz/food-allergen-detector/blob/3655cc9242918ba7e1da2f6c1f5b6174872538c8/web%20app/static/resultspage.png?raw=true)
+*Allergen result*
+
+## Introduction
 This project is done by  aims to develop an AI model for allergen detection in food products using a multi-label classification approach. It will utilize separate Random Forest classifiers for each allergen class, treating them as independent binary classification tasks. This project addresses the limitations of traditional allergen detection methods, ensuring consumer safety and improving food allergen detection accuracy and food quality control processes. Using the ["Food Ingredients & Allergens"](https://www.kaggle.com/datasets/uom190346a/food-ingredients-and-allergens) dataset from Kaggle, the model will be trained to predict the presence of allergenic ingredients in different food products. The model will learn how to recognize patterns and associations between ingredients and allergens. The developed model will then be integrated into a web application for user-friendly allergen detection, where people with allergies can make informed decisions about the food they buy and consume. This project has the potential to benefit food manufacturers, the food service industry, regulatory bodies, and people with allergies, ultimately improving food safety and promoting informed food choices.
 
 ## Project Code
